@@ -137,7 +137,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   autoRefresh() {
     console.log("gggsupernode")
 
-    const source = interval(15000);
+    const source = interval(120000);
     this.subscription = source.subscribe(val => {
       console.log("gggsupernode.ggg")
       this.loadData()
