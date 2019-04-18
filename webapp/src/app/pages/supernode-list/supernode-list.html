@@ -1,0 +1,75 @@
+<div class="example-table">
+  <div *ngIf="!isMobile" class="docs-primary-header">
+    <h1>Supernodes</h1>
+  </div>
+  <mat-nav-list class="docs-guide-list">
+
+    <div fxLayout="row">
+      <mat-form-field class="mat-form-field-filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="dataSource"
+           matSort matSortActive="StakeExpiringBlock" matSortDisableClear matSortDirection="asc">
+
+      <ng-container matColumnDef="BlockchainBasedListTier">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Tier</th>
+        <td mat-cell *matCellDef="let row">{{row.BlockchainBasedListTier}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="PublicId">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Public ID</th>
+        <td mat-cell *matCellDef="let row">{{row.PublicId}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="isOnline">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span style="color: rgb(33,156,0);font-size: 20px;" *ngIf="row.isOnline">&#9673;</span>
+          <span style="color: rgb(237,0,21);font-size: 20px;" *ngIf="!row.isOnline">&#9673;</span>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="StakeAmount">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Stake</th>
+        <td mat-cell *matCellDef="let row">{{row.StakeAmount}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="StakeExpiringBlock">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Expiration Block</th>
+        <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="LastUpdateAge">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Last Update</th>
+        <td mat-cell *matCellDef="let row">{{row.LastUpdateAge}}s ago</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ExpirationTime">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Expiration Block / Time</th>
+        <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}} / {{row.ExpirationTime}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="watchlist">
+        <th mat-header-cell *matHeaderCellDef>Watchlist</th>
+        <td style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" mat-cell *matCellDef="let row">
+          <span (click)="removeFromWatchlist(row)" *ngIf="row.favorite"><i class="material-icons">star</i></span>
+          <span (click)="addToWatchlist(row)" *ngIf="!row.favorite"><i class="material-icons">star_border</i></span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-card *ngIf="isLoadingResults"
+              style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </mat-card>
+  </mat-nav-list>
+</div>
+<app-footer *ngIf="!isMobile"></app-footer>
