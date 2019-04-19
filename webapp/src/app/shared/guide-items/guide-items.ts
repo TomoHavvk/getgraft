@@ -10,7 +10,7 @@ const GUIDES = [
   {
     id: 'getting-started',
     name: 'Getting started',
-    url: 'https://github.com/graft-community/docs/blob/master/Graft_Supernode_Mainnet_Simple-step-by-step-setup-instructions-for-non-Linux-users_v1.7.md',
+    url: '/guides/getting-started.html',
   },
   {
 

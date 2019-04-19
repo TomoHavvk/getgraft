@@ -1,0 +1,98 @@
+<div class="docs-primary-header">
+  <h1>{{name}}</h1>
+</div>
+
+<div class="docs-guide-wrapper">
+  <div class="docs-guide-toc-and-content">
+
+
+    <div class="docs-markdown">
+      <h1>How to setup Tier 1 Graft Network supernode on Ubuntu</h1>
+      <iframe width="900" height="500" [src]='safeURL' frameborder="0" allowfullscreen></iframe>
+      <h3 class="docs-header-link">
+        <span header-link="what-is-a-theme-"></span>
+        Create VPS
+      </h3>
+      <p> <a href="https://m.do.co/c/42064024edc1">Digital Ocean</a>
+      </p>
+
+      <h3  class="docs-header-link">
+        <span header-link="what-is-a-theme-"></span>
+        Graft Repository
+      </h3>
+      <p> <a href="https://github.com/graft-project/GraftNetwork/releases">Graft Node</a>
+      </p>
+      <p> <a href="https://github.com/graft-project/graft-ng/releases">Graft Supernode</a>
+      </p>
+      <h3 class="docs-header-link">
+        <span header-link="using-a-pre-built-theme"></span>
+        Download blockchain
+      </h3>
+
+      <ul>
+        <li><code>mkdir -p $HOME/.graft/</code></li>
+        <li><code>cd $HOME/.graft/</code></li>
+        <li><code>curl http://graftbuilds-ohio.s3.amazonaws.com/lmdb.tar.gz | tar xzf -</code></li>
+        <li><code>cd lmdb && rm em* && rm lo*</code></li>
+      </ul>
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Cmd for run and restore wallet with a remote node
+      </h3>
+
+      <ul>
+        <li><code>./graft-wallet-cli --restore-deterministic-wallet --daemon-address graft.observer:18981</code></li>
+      </ul>
+
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Cmd for run restored wallet with a remote node
+      </h3>
+
+      <ul>
+        <li><code>./graft-wallet-cli --daemon-address graft.observer:18981</code></li>
+      </ul>
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Cmd for stake transfer
+      </h3>
+      <ul>
+        <li><code>stake_transfer [addr] [amount] [lockblocks](Number of blocks to lock the stake transaction for, max 5000) [sn_public_id_key] [sn_signature]</code></li>
+      </ul>
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Supernode endpoint
+      </h3>
+
+      <ul>
+        <li><code>http://*.*.*.*:18690/dapi/v2.0/cryptonode/getwalletaddress</code></li>
+      </ul>
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Default supernode private key location
+      </h3>
+
+      <ul>
+        <li><code>~/.graft/supernode/data/supernode.keys</code></li>
+      </ul>
+
+      <h3 class="docs-header-link">
+        <span header-link="defining-a-custom-theme"></span>
+        Screen
+      </h3>
+
+      <ul>
+        <li><code>For create new screen: `screen -S node`</code></li>
+        <li><code>For exit from created screen: `Ctrl + a + d`</code></li>
+        <li><code>For back to created screen: `screen -r node`</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

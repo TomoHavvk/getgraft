@@ -1,6 +1,7 @@
 import {Homepage} from './pages/homepage';
 import {GuideList} from './pages/guide-list';
 import {WatchList} from './pages/watch-list';
+import {GettingStarted} from './pages/getting-started';
 import {SupernodeList} from './pages/supernode-list';
 import {Routes} from '@angular/router';
 
@@ -11,6 +12,7 @@ export const MATERIAL_DOCS_ROUTES: Routes = [
   {path: '', component: Homepage, pathMatch: 'full', data: {}},
   // {path: 'categories', redirectTo: '/components/categories'},
   {path: 'guides', component: GuideList, data: {}},
+  {path: 'getting-started', component: GettingStarted, data: {}},
   {path: 'watchlist', component: WatchList, data: {}},
   {path: 'supernodes', component: SupernodeList, data: {}},
   // Since https://github.com/angular/material2/pull/9574, the cdk-table guide became the overview

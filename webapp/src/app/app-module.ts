@@ -22,6 +22,7 @@ import {GuideItems} from './shared/guide-items/guide-items';
 import {DocumentationItems} from './shared/documentation-items/documentation-items';
 import {GuideListModule} from './pages/guide-list';
 import {WatchListModule} from './pages/watch-list';
+import {GettingStartedModule} from './pages/getting-started';
 import {SupernodeListModule} from './pages/supernode-list';
 import {GuideViewerModule} from './pages/guide-viewer';
 import {DocViewerModule} from './shared/doc-viewer/doc-viewer-module';
@@ -44,6 +45,7 @@ import {GaService} from './shared/ga/ga';
     FooterModule,
     GuideListModule,
     WatchListModule,
+    GettingStartedModule,
     SupernodeListModule,
     GuideViewerModule,
     HomepageModule,
