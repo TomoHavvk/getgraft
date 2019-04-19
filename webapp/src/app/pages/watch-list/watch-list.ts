@@ -179,7 +179,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
   autoRefresh() {
     console.log("gggwatchlist")
-    const source = interval(15000);
+    const source = interval(120000);
     this.subscription = source.subscribe(val => {
       console.log("gggwatchlist.ggg")
       this.loadData()
