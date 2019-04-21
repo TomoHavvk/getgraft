@@ -5,8 +5,9 @@
   <mat-nav-list class="docs-guide-list">
 
     <div fxLayout="row">
-      <mat-form-field class="mat-form-field-filter">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <mat-form-field  class="mat-form-field-filter">
+        <input *ngIf="isMobile"  matInput (change)="applyFilter($event.target.value)" placeholder="Filter">
+        <input *ngIf="!isMobile" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
     </div>
 
