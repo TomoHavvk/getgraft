@@ -25,7 +25,7 @@ import {
 } from '@angular/material';
 import {interval, merge, Observable, of as observableOf, Subscription} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-supernode',
@@ -43,6 +43,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   data: Node[] = [];
   isLoadingResults = true;
   isMobile: boolean;
+  filter: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -51,11 +52,10 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-      this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent)
-      console.log("isMobile - " + this.isMobile)
-    // });
+    this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent)
+    console.log("isMobile - " + this.isMobile)
   }
+
   ngAfterViewInit() {
     this.isLoadingResults = true;
     this.loadData();
@@ -67,7 +67,6 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
-      console.log("destroySUPER")
   }
 
   loadData() {
@@ -105,13 +104,13 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
       }
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
+      this.dataSource.filter = this.filter.trim().toLowerCase();
     });
-
-
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter() {
+    console.log(this.filter);
+    this.dataSource.filter = this.filter.trim().toLowerCase();
   }
 
   addToWatchlist(node: Node) {
@@ -135,11 +134,8 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   autoRefresh() {
-    console.log("gggsupernode")
-
     const source = interval(120000);
     this.subscription = source.subscribe(val => {
-      console.log("gggsupernode.ggg")
       this.loadData()
     });
   }
@@ -195,7 +191,7 @@ export class HttpDatabase {
 }
 
 @NgModule({
-  imports: [MatListModule, MatCardModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
+  imports: [MatListModule, MatCardModule, FormsModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
   exports: [SupernodeList],
   declarations: [SupernodeList],
   providers: [GuideItems, ComponentPageTitle],

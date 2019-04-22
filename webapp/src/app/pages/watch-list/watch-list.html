@@ -6,7 +6,7 @@
     <div fxLayout="row">
 
       <mat-form-field class="mat-form-field-filter">
-        <input type="text"  placeholder="Select public id" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [value]="searchInput" #input>
+        <input type="text"  placeholder="Select public id" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"  [(ngModel)]="searchInput" #input>
         <mat-autocomplete (optionSelected)="addToWatchlist(input.value); input.value = ''" #auto="matAutocomplete">
           <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
@@ -14,9 +14,6 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <!--<mat-form-field class="mat-form-field-filter">-->
-        <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
-      <!--</mat-form-field>-->
     </div>
 
     <table mat-table [dataSource]="dataSource"
@@ -65,7 +62,6 @@
         <th mat-header-cell *matHeaderCellDef>Watchlist</th>
         <td style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" mat-cell *matCellDef="let row">
           <span (click)="removeFromWatchlist(row)" *ngIf="row.favorite"><i class="material-icons">star</i></span>
-          <!--<span (click)="addToWatchlist(row)" *ngIf="!row.favorite"><i class="material-icons">star_border</i></span>-->
         </td>
       </ng-container>
 

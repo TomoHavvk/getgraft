@@ -13,7 +13,6 @@ import {HeaderLink} from './header-link';
 import {CopierService} from '../copier/copier.service';
 
 
-// ExampleViewer is included in the DocViewerModule because they have a circular dependency.
 @NgModule({
   imports: [
     MatButtonModule,

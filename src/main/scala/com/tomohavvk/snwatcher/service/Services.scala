@@ -31,14 +31,17 @@ case class Services(implicit val system: ActorSystem, materializer: ActorMateria
   def nodes: Future[Nodes] = (supernodeActor ? Nodes).map(_.asInstanceOf[Nodes])
 
   private val task: Runnable = () => {
-    val online = Await.result(SupernodeHttpClient.result(), 10.seconds)
-    val onlineWithOffline = Await.result(SupernodeHttpClient.result(withOffline = true), 10.seconds)
-    supernodeActor ! Nodes(online.items, onlineWithOffline.items, null, online.height)
-    logger.info("Services after send `update info`")
+    try {
+      val online = Await.result(SupernodeHttpClient.result(), 10.seconds)
+      val onlineWithOffline = Await.result(SupernodeHttpClient.result(withOffline = true), 10.seconds)
+      supernodeActor ! Nodes(online.items, onlineWithOffline.items, null, online.height)
+    } catch {
+      case e: Throwable => logger.error(e.getMessage)
+    }
   }
 
   scheduler.schedule(
     initialDelay = Duration(2, TimeUnit.SECONDS),
-    interval = Duration(59, TimeUnit.SECONDS),
+    interval = Duration(50, TimeUnit.SECONDS),
     runnable = task)
 }
