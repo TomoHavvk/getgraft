@@ -30,9 +30,9 @@ class HttpServer(routes: Seq[HasRoute])(
 
   val startedAt: Instant = Instant.now
 
-  val route = routes map (_.route) reduce { _ ~ _ }
+  val route: Route = routes map (_.route) reduce { _ ~ _ }
 
-  val serverBinding = {
+  val serverBinding: Future[Http.ServerBinding] = {
     logger.info(s"Starting AkkaHttp server on port $port")
 
     Http().bindAndHandle(route, interface = interface, port = port)
@@ -46,7 +46,7 @@ class HttpServer(routes: Seq[HasRoute])(
 }
 
 object HttpServer {
-  private val config = ConfigFactory.load() getConfig "grafttools.http.server"
+  private val config = ConfigFactory.load() getConfig "snwatcher.http.server"
   private val interface = config.getString("interface")
   private val port = config.getInt("port")
 

@@ -88,7 +88,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
         map(data => {
           this.isLoadingResults = false;
           this.height = data.height
-          return data.onlineNodes.concat(data.offlineNodes);
+          return data.nodes;
         }),
         catchError(() => {
           this.isLoadingResults = false;
@@ -173,8 +173,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 }
 
 export interface Supernodes {
-  onlineNodes: Node[];
-  offlineNodes: Node[];
+  nodes: Node[];
   info: Info;
   height: number;
 }
