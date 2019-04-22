@@ -2,39 +2,41 @@ package com.tomohavvk.snwatcher.service
 
 import java.util.concurrent.TimeUnit
 
-import akka.actor.{ActorRef, ActorSystem, Props, Scheduler}
-import akka.stream.{ActorMaterializer, Materializer}
-import com.tomohavvk.snwatcher.actors.SupernodeActor.Nodes
-import com.tomohavvk.snwatcher.actors.SupernodeActor
+import akka.actor.{ActorSystem, Scheduler}
+import akka.stream.ActorMaterializer
+import com.tomohavvk.snwatcher.actors.{Info, Nodes, Supernode}
 import com.tomohavvk.snwatcher.http.client.SupernodeHttpClient
-import com.tomohavvk.snwatcher.http.client.SupernodeHttpClient.{Node, Result}
-import akka.pattern.ask
-import akka.util.Timeout
 import com.typesafe.scalalogging.LazyLogging
 
+import scala.concurrent.ExecutionContextExecutor
 import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContextExecutor, Future}
 
 case class Services(implicit val system: ActorSystem, materializer: ActorMaterializer) extends LazyLogging {
 
-  private val supernodeActor: ActorRef = system.actorOf(Props[SupernodeActor], name = "supernode-actor")
   private val scheduler: Scheduler = system.scheduler
-
   private implicit val ec: ExecutionContextExecutor = system.dispatcher
 
-  private def nodes()(implicit system: ActorSystem, materializer: Materializer): Future[Result] = SupernodeHttpClient.result()
+  def nodes: Option[Nodes] = {
+    Supernode.height.flatMap(height => {
+      Supernode.nodes.map(nodes => {
+        val asView = nodes.map(_.asView(height))
 
-  private implicit val timeout: Timeout = Timeout(5 seconds)
+        val totalStake = asView.map(_.StakeAmount).sum
+        val t1 = asView.count(_.BlockchainBasedListTier == 1)
+        val t2 = asView.count(_.BlockchainBasedListTier == 2)
+        val t3 = asView.count(_.BlockchainBasedListTier == 3)
+        val t4 = asView.count(_.BlockchainBasedListTier == 4)
+        val info = Info(asView.count(_.isOnline), totalStake, t1, t2, t3, t4)
 
-  def updateNodes(): Unit = supernodeActor ? Nodes
+        Nodes(asView, info, height)
+      })
+    })
+  }
 
-  def nodes: Future[Nodes] = (supernodeActor ? Nodes).map(_.asInstanceOf[Nodes])
-
-  private val task: Runnable = () => {
+  private val refreshNodes: Runnable = () => {
     try {
-      val online = Await.result(SupernodeHttpClient.result(), 10.seconds)
-      val onlineWithOffline = Await.result(SupernodeHttpClient.result(withOffline = true), 10.seconds)
-      supernodeActor ! Nodes(online.items, onlineWithOffline.items, null, online.height)
+      SupernodeHttpClient.get().foreach(data => Supernode.updateOnlineNodes(data))
+      SupernodeHttpClient.get(withOffline = true).foreach(data => Supernode.updateOfflineNodes(data))
     } catch {
       case e: Throwable => logger.error(e.getMessage)
     }
@@ -43,5 +45,5 @@ case class Services(implicit val system: ActorSystem, materializer: ActorMateria
   scheduler.schedule(
     initialDelay = Duration(2, TimeUnit.SECONDS),
     interval = Duration(50, TimeUnit.SECONDS),
-    runnable = task)
+    runnable = refreshNodes)
 }

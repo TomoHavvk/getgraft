@@ -16,7 +16,7 @@ import scala.util.{Failure, Success}
 
 object Boot extends App with LazyLogging {
 
-  implicit val system = ActorSystem("grafttools-system")
+  implicit val system = ActorSystem("snwatcher-system")
   implicit val matr = ActorMaterializer()
   implicit val ec = system.dispatcher
 
