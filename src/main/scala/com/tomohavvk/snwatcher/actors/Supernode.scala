@@ -42,7 +42,7 @@ case class NodesOnline(nodes: String)
 case class NodesOffline(nodes: String)
 case class Data(result: Result)
 case class Result(items: List[Node], height: Long)
-case class Info(nodesOnline: Long, totalStake: Long, t1: Long, t2: Long, t3: Long, t4: Long)
+case class Info(nodesOnline: Long, nodesOffline: Long, totalStake: Long, t1: Long, t2: Long, t3: Long, t4: Long)
 
 case class Node(
   Address: String,

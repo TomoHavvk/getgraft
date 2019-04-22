@@ -16,8 +16,8 @@ object SupernodeHttpClient extends LazyLogging {
     implicit val ec: ExecutionContextExecutor = system.dispatcher
 
     val url = {
-      if (withOffline) system.settings.config.getString("snwatcher.http.client.supernodes-online-url")
-      else system.settings.config.getString("snwatcher.http.client.supernodes-online-and-offline-url")
+      if (withOffline) system.settings.config.getString("snwatcher.http.client.supernodes-online-and-offline-url")
+      else system.settings.config.getString("snwatcher.http.client.supernodes-online-url")
     }
 
     Http().singleRequest(HttpRequest(uri = url))
