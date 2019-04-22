@@ -6,8 +6,8 @@
 
     <div fxLayout="row">
       <mat-form-field  class="mat-form-field-filter">
-        <input *ngIf="isMobile"  matInput (change)="applyFilter($event.target.value)" placeholder="Filter">
-        <input *ngIf="!isMobile" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        <input *ngIf="isMobile"  matInput (change)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
+        <input *ngIf="!isMobile" matInput (keyup)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
       </mat-form-field>
     </div>
 

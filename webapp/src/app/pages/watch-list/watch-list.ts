@@ -25,7 +25,7 @@ import {
 } from '@angular/material';
 import {merge, interval, Observable, of as observableOf, Subscription, BehaviorSubject} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {ReactiveFormsModule, FormControl} from '@angular/forms';
+import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-watchlist',
@@ -45,7 +45,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   options: string[] = [];
   filteredOptions: Observable<string[]>;
   myControl = new FormControl();
-  searchInput: string;
+  searchInput: string = '';
   isMobile: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,12 +53,12 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
+
   ngOnInit() {
-    // setTimeout(() => {
     this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent)
     console.log("isMobile - " + this.isMobile)
-    // });
   }
+
   ngAfterViewInit() {
     this.isLoadingResults = true;
 
@@ -73,7 +73,6 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe()
-    console.log("destroyWCH")
   }
 
   loadData() {
@@ -100,10 +99,10 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
       this.options = this.data.map(x => x.PublicId);
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
-          startWith(''),
+          startWith(this.searchInput),
           map(value => this._filter(value))
         );
-      let nodes: Node[] = []
+      let nodes: Node[] = [];
       if (this.cookieService.get('watchlist')) {
 
         let watchlist: string [] = JSON.parse(this.cookieService.get('watchlist'));
@@ -114,17 +113,10 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
             nodes.push(node)
           }
         })
-
       }
       this.dataSource = new MatTableDataSource(nodes);
       this.dataSource.sort = this.sort;
     });
-
-
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   removeFromWatchlist(node: Node) {
@@ -137,7 +129,6 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
   addToWatchlist(publicId: string) {
     let nodes: Node[] = []
-    console.log(publicId)
     if (this.cookieService.get('watchlist')) {
       let watchlist: string [] = JSON.parse(this.cookieService.get('watchlist'));
       if (watchlist.filter(x => x == publicId).length > 0) {
@@ -145,16 +136,12 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
         return;
       }
       this.data.forEach(node => {
-        // console.log(node.PublicId)
         if (publicId === node.PublicId) {
-          console.log(publicId)
-
           watchlist.push(node.PublicId);
           this.cookieService.put('watchlist', JSON.stringify(watchlist));
           node.favorite = true
           nodes.push(node)
         }
-
       });
     } else {
       this.data.forEach(node => {
@@ -172,16 +159,14 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
 
+    const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   autoRefresh() {
-    console.log("gggwatchlist")
     const source = interval(120000);
     this.subscription = source.subscribe(val => {
-      console.log("gggwatchlist.ggg")
       this.loadData()
     });
   }
@@ -232,7 +217,7 @@ export class HttpDatabase {
 }
 
 @NgModule({
-  imports: [MatListModule, MatCardModule, MatAutocompleteModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
+  imports: [MatListModule, FormsModule, MatCardModule, MatAutocompleteModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
   exports: [WatchList],
   declarations: [WatchList],
   providers: [GuideItems, ComponentPageTitle],

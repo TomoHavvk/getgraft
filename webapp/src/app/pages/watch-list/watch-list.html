@@ -6,7 +6,7 @@
     <div fxLayout="row">
 
       <mat-form-field class="mat-form-field-filter">
-        <input type="text"  placeholder="Select public id" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" [value]="searchInput" #input>
+        <input type="text"  placeholder="Select public id" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"  [(ngModel)]="searchInput" #input>
         <mat-autocomplete (optionSelected)="addToWatchlist(input.value); input.value = ''" #auto="matAutocomplete">
           <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
             {{option}}
