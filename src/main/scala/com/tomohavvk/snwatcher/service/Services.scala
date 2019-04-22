@@ -26,7 +26,7 @@ case class Services(implicit val system: ActorSystem, materializer: ActorMateria
         val t2 = asView.count(_.BlockchainBasedListTier == 2)
         val t3 = asView.count(_.BlockchainBasedListTier == 3)
         val t4 = asView.count(_.BlockchainBasedListTier == 4)
-        val info = Info(asView.count(_.isOnline), totalStake, t1, t2, t3, t4)
+        val info = Info(asView.count(_.isOnline), asView.count(!_.isOnline), totalStake, t1, t2, t3, t4)
 
         Nodes(asView, info, height)
       })
