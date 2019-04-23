@@ -43,6 +43,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   data: Node[] = [];
   isLoadingResults = true;
   isMobile: boolean;
+  favorite: boolean = false;
   online: boolean = true;
   offline: boolean = true;
   t1: boolean = true;
@@ -59,9 +60,32 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   changeOption() {
-    this.dataSource = new MatTableDataSource(this.withOptions(this.data));
+    if (this.favorite) {
+      let filtered = this.data.filter(node => node.favorite)
+      this.dataSource = new MatTableDataSource(this.withOptions(filtered));
+    } else {
+      this.dataSource = new MatTableDataSource(this.withOptions(this.data));
+
+    }
+
     this.dataSource.sort = this.sort;
     this.dataSource.filter = this.filter.trim().toLowerCase();
+  }
+
+  onlyFavorite() {
+    this.favorite = !this.favorite;
+    if (this.favorite) {
+
+      let filtered = this.data.filter(node => node.favorite)
+      this.dataSource = new MatTableDataSource(this.withOptions(filtered));
+      this.dataSource.sort = this.sort;
+      this.dataSource.filter = this.filter.trim().toLowerCase();
+    } else {
+      this.dataSource = new MatTableDataSource(this.withOptions(this.data));
+      this.dataSource.sort = this.sort;
+      this.dataSource.filter = this.filter.trim().toLowerCase();
+    }
+
   }
 
   withOptions(nodes: Node[]): Node[] {
