@@ -2,12 +2,19 @@ package com.tomohavvk.snwatcher.redis
 
 import com.redis.RedisClient
 import com.typesafe.config.ConfigFactory
+import com.typesafe.scalalogging.LazyLogging
 
-object RClient {
+object RClient extends LazyLogging {
   private val config = ConfigFactory.load()
-  private val client = new RedisClient(config.getString("snwatcher.redis.host"), config.getInt("snwatcher.redis.port"))
 
-  def incr(key: String): Option[Long] = client.incr(key)
-  def get(key: String): Option[String] = client.get(key)
-  def set(key: String, value: String): Boolean = client.set(key, value)
+  val client: ThreadLocal[RedisClient] = new ThreadLocal[RedisClient]() {
+    override def initialValue(): RedisClient = {
+      logger.debug("Init Redis instance")
+      new RedisClient(config.getString("snwatcher.redis.host"), config.getInt("snwatcher.redis.port"))
+    }
+  }
+
+  def incr(key: String): Option[Long] = client.get().incr(key)
+  def get(key: String): Option[String] = client.get().get(key)
+  def set(key: String, value: String): Boolean = client.get().set(key, value)
 }
