@@ -23,6 +23,8 @@
             <mat-checkbox class="margin" [(ngModel)]="t2" (change)="changeOption()">T2</mat-checkbox>
             <mat-checkbox class="margin" [(ngModel)]="t3" (change)="changeOption()">T3</mat-checkbox>
             <mat-checkbox class="margin" [(ngModel)]="t4" (change)="changeOption()">T4</mat-checkbox>
+            <i (click)="onlyFavorite()" *ngIf="favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" class="material-icons margin">star</i>
+            <i (click)="onlyFavorite()" *ngIf="!favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;"  class="material-icons margin">star_border</i>
           </section>
           <mat-form-field  class="mat-form-field-filter">
             <input *ngIf="isMobile"  matInput (change)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
