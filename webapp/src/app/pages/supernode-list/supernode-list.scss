@@ -33,3 +33,26 @@ table {
   font-size: 14px;
   width: 20%;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+  //border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 60px;
+  background-color: rgba(218, 218, 218, 0.24);
+  color: rgba(50, 200, 71, 0.93);
+  text-align: center;
+  border-radius: 6px;
+  padding: 2px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

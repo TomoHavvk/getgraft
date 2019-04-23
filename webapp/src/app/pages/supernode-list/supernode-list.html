@@ -21,12 +21,25 @@
 
       <ng-container matColumnDef="PublicId">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Public ID</th>
-        <td mat-cell *matCellDef="let row">{{row.PublicId}}</td>
+        <td mat-cell *matCellDef="let row">
+          <span style="cursor: pointer" (click)="copyToClipboard(row.PublicId)">
+            <div class="tooltip">{{row.PublicId}}
+              <span class="tooltiptext">Copy</span>
+            </div>
+          </span>
+
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="Address">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
-        <td mat-cell *matCellDef="let row">{{hideAddress(row.Address)}}</td>
+        <td mat-cell *matCellDef="let row">
+          <span style="cursor: pointer" (click)="copyToClipboard(row.Address)">
+            <div class="tooltip">{{hideAddress(row.Address)}}
+              <span class="tooltiptext">Copy</span>
+            </div>
+          </span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="isOnline">
