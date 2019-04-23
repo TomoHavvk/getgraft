@@ -36,7 +36,7 @@ import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
 
 export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   private subscription: Subscription;
-  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
   database: HttpDatabase | null;
   dataSource = null;
   height = 0;
@@ -125,12 +125,27 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
+  hideAddress(address: string): string {
+    return address.substring(0, 5) +  "..."
+      + address.substring(address.length - 5, address.length)
+  }
+
   removeFromWatchlist(node: Node) {
     let watchlist: string [] = JSON.parse(this.cookieService.get('watchlist'));
     watchlist = watchlist.filter(x => x !== node.PublicId);
     node.favorite = false;
     this.dataSource.data = this.dataSource.data.filter(x => node.PublicId != x.PublicId)
     this.cookieService.put('watchlist', JSON.stringify(watchlist))
+
+    // let inp = '';
+    // watchlist.forEach(function (value) {
+    //   inp = inp + value + "\n";
+    // });
+    //
+    // if (inp.trim() != '')
+    //   this.searchInput = inp.trim() + '\n'
+    //or
+   // this.loadData()
   }
 
   addToWatchlist(publicId: string) {
