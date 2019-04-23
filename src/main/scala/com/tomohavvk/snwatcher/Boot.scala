@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snwatcher.http.server.{HttpServer, IndexHttp, ShutdownHttp}
+import com.tomohavvk.snwatcher.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
 import com.tomohavvk.snwatcher.service.Services
 import com.typesafe.scalalogging.LazyLogging
 
@@ -26,9 +26,10 @@ object Boot extends App with LazyLogging {
 
   val services = Services()
   val indexHttp = IndexHttp(services)
+  val metricsHttp = new MetricsHttp()
   val shutdownHttp = new ShutdownHttp(() => shutdown())
 
-  lazy val http = HttpServer(shutdownHttp, indexHttp)
+  lazy val http = HttpServer(shutdownHttp, metricsHttp, indexHttp)
   def start(): Unit = {
 
     val version: String = Option(getClass.getPackage.getImplementationVersion) getOrElse "development"
