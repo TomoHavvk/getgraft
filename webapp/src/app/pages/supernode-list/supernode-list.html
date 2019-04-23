@@ -5,10 +5,33 @@
   <mat-nav-list class="docs-guide-list">
 
     <div fxLayout="row">
-      <mat-form-field  class="mat-form-field-filter">
-        <input *ngIf="isMobile"  matInput (change)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
-        <input *ngIf="!isMobile" matInput (keyup)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
-      </mat-form-field>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Options
+            </mat-panel-title>
+            <!--<mat-panel-description>-->
+            <!--Open/Close-->
+            <!--</mat-panel-description>-->
+          </mat-expansion-panel-header>
+          <section class="section">
+            <mat-checkbox class="margin" [(ngModel)]="online" (change)="changeOption()">Online</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="offline" (change)="changeOption()">Offline</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="t1" (change)="changeOption()">T1</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="t2" (change)="changeOption()">T2</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="t3" (change)="changeOption()">T3</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="t4" (change)="changeOption()">T4</mat-checkbox>
+          </section>
+          <mat-form-field  class="mat-form-field-filter">
+            <input *ngIf="isMobile"  matInput (change)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
+            <input *ngIf="!isMobile" matInput (keyup)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
+          </mat-form-field>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+      <hr>
     </div>
 
     <table mat-table [dataSource]="dataSource"
@@ -67,7 +90,7 @@
       </ng-container>
 
       <ng-container matColumnDef="ExpirationTime">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>Expiration Block / Time</th>
+        <th mat-header-cell *matHeaderCellDef>Expiration Block / Time</th>
         <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}} / {{row.ExpirationTime}}</td>
       </ng-container>
 
