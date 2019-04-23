@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.model.headers._
 import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
+import akka.http.scaladsl.server.Directives.handleExceptions
 import akka.http.scaladsl.server.{Directive0, Route, _}
 import akka.stream.ActorMaterializer
 import com.tomohavvk.snwatcher.service.Services
@@ -14,12 +15,15 @@ import scala.concurrent.ExecutionContextExecutor
 
 case class IndexHttp(services: Services)(implicit val system: ActorSystem, materializer: ActorMaterializer) extends HasRoute with Directives with LazyLogging {
   implicit val ec: ExecutionContextExecutor = system.dispatcher
+
+  // TODO implement prometheus metrics
   val ips = scala.collection.mutable.SortedSet.empty[String]
   var indexCounter = 0
   var snCounter = 0
 
   override def route: Route =
     corsHandler(
+      handleExceptions(unexpectedErrorHandler) {
       handleRejections(rejectionHandler) {
         extractClientIP { IP =>
           val ip = IP.toOption.map(_.getHostAddress).getOrElse("unknown")
@@ -47,7 +51,14 @@ case class IndexHttp(services: Services)(implicit val system: ActorSystem, mater
             }
           }
         }
+        }
       })
+
+  private def unexpectedErrorHandler = ExceptionHandler {
+    case e: Exception =>
+      logger.error(e.getMessage)
+      complete(StatusCodes.InternalServerError -> e.getMessage)
+  }
 
   implicit def rejectionHandler: RejectionHandler =
     RejectionHandler.newBuilder()
