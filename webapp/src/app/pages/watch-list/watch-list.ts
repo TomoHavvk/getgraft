@@ -43,7 +43,6 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   data: Node[] = [];
   isLoadingResults = true;
   options: string[] = [];
-  filteredOptions: Observable<string[]>;
   myControl = new FormControl();
   searchInput: string = '';
   isMobile: boolean;
@@ -97,22 +96,29 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
       ).subscribe(data => {
       this.data = data;
       this.options = this.data.map(x => x.PublicId);
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(this.searchInput),
-          map(value => this._filter(value))
-        );
+
       let nodes: Node[] = [];
       if (this.cookieService.get('watchlist')) {
 
         let watchlist: string [] = JSON.parse(this.cookieService.get('watchlist'));
-
         this.data.forEach(function (node) {
           if (watchlist.indexOf(node.PublicId) != -1) {
             node.favorite = true;
             nodes.push(node)
+          } else if (watchlist.indexOf(node.Address) != -1) {
+            node.favorite = true;
+            nodes.push(node)
           }
-        })
+        });
+
+
+        let inp = '';
+        watchlist.forEach(function (value) {
+          inp = inp + value + "\n";
+        });
+
+        if (inp.trim() != '')
+          this.searchInput = inp.trim() + '\n'
       }
       this.dataSource = new MatTableDataSource(nodes);
       this.dataSource.sort = this.sort;
@@ -169,6 +175,37 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
     this.subscription = source.subscribe(val => {
       this.loadData()
     });
+  }
+
+  watch() {
+    if (this.searchInput.trim() != '') {
+
+      let watchlist: string [] = [];
+      if (this.cookieService.get('watchlist')) watchlist = JSON.parse(this.cookieService.get('watchlist'));
+
+      let input = this.searchInput.split('\n');
+      input.forEach(function (value) {
+        if (watchlist.indexOf(value) == -1) {
+          watchlist.push(value)
+        }
+      });
+      let valuesToRemove = []
+      watchlist.forEach(function (value) {
+        if (input.indexOf(value) == -1) {
+          valuesToRemove.push(value)
+        }
+      });
+      valuesToRemove.forEach(function (value) {
+        watchlist.splice(watchlist.indexOf(value), 1);
+      });
+
+      this.cookieService.put('watchlist', JSON.stringify(watchlist));
+      this.searchInput = this.searchInput + '\n';
+    } else {
+      this.cookieService.put('watchlist', JSON.stringify([]));
+      this.searchInput = this.searchInput.trim()
+    }
+    this.loadData()
   }
 }
 
