@@ -33,6 +33,11 @@
         <td mat-cell *matCellDef="let row">{{row.PublicId}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="Address">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let row">{{hideAddress(row.Address)}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="isOnline">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
         <td mat-cell *matCellDef="let row">

@@ -36,7 +36,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   private subscription: Subscription;
-  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
   database: HttpDatabase | null;
   dataSource = null;
   height = 0;
@@ -138,6 +138,11 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
     this.subscription = source.subscribe(val => {
       this.loadData()
     });
+  }
+
+  hideAddress(address: string): string {
+    return address.substring(0, 5) +  "..."
+      + address.substring(address.length - 5, address.length)
   }
 }
 
