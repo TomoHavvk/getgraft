@@ -147,7 +147,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
         let watchlist: string [] = JSON.parse(this.cookieService.get('watchlist'));
 
         this.data.forEach(function (node) {
-          if (watchlist.indexOf(node.PublicId) != -1) {
+          if (watchlist.indexOf(node.PublicId) != -1 || watchlist.indexOf(node.Address) != -1) {
             node.favorite = true;
           }
         })
