@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Scheduler}
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snwatcher.actors.{Info, Nodes, Supernode}
 import com.tomohavvk.snwatcher.http.client.SupernodeHttpClient
 import com.typesafe.scalalogging.LazyLogging
 
