@@ -144,6 +144,15 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
     return address.substring(0, 5) +  "..."
       + address.substring(address.length - 5, address.length)
   }
+
+  copyToClipboard(address: string) {
+    const el = document.createElement('textarea');
+    el.value = address;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  };
 }
 
 export interface Supernodes {

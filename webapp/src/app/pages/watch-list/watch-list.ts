@@ -125,8 +125,17 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
+   copyToClipboard(address: string) {
+    const el = document.createElement('textarea');
+    el.value = address;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  };
+
   hideAddress(address: string): string {
-    return address.substring(0, 5) +  "..."
+    return address.substring(0, 5) + "..."
       + address.substring(address.length - 5, address.length)
   }
 
@@ -135,17 +144,10 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
     watchlist = watchlist.filter(x => x !== node.PublicId);
     node.favorite = false;
     this.dataSource.data = this.dataSource.data.filter(x => node.PublicId != x.PublicId)
-    this.cookieService.put('watchlist', JSON.stringify(watchlist))
-
-    // let inp = '';
-    // watchlist.forEach(function (value) {
-    //   inp = inp + value + "\n";
-    // });
-    //
-    // if (inp.trim() != '')
-    //   this.searchInput = inp.trim() + '\n'
-    //or
-   // this.loadData()
+    this.cookieService.put('watchlist', JSON.stringify(watchlist));
+    if (watchlist.length == 0) {
+      this.searchInput = ''
+    }
   }
 
   addToWatchlist(publicId: string) {
