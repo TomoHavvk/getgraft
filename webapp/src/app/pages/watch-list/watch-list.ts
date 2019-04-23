@@ -11,6 +11,7 @@ import {MatGridListModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import {FooterModule} from '../../shared/footer/footer';
 import {CommonModule} from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {ComponentPageTitle} from '../page-title/page-title';
 import {CookieService} from 'ngx-cookie';
 
@@ -46,6 +47,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   myControl = new FormControl();
   searchInput: string = '';
   isMobile: boolean;
+  panelOpenState = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -270,7 +272,7 @@ export class HttpDatabase {
 }
 
 @NgModule({
-  imports: [MatListModule, FormsModule, MatCardModule, MatAutocompleteModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
+  imports: [MatListModule, MatExpansionModule, FormsModule, MatCardModule, MatAutocompleteModule, ReactiveFormsModule, MatSelectModule, MatCheckboxModule, MatGridListModule, MatInputModule, MatFormFieldModule, MatSortModule, MatProgressSpinnerModule, MatTableModule, MatPaginatorModule, RouterModule, FooterModule, CommonModule],
   exports: [WatchList],
   declarations: [WatchList],
   providers: [GuideItems, ComponentPageTitle],
