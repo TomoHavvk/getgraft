@@ -17,14 +17,14 @@
             <!--</mat-panel-description>-->
           </mat-expansion-panel-header>
           <section class="section">
-            <mat-checkbox class="margin" [(ngModel)]="online" (change)="changeOption()">Online</mat-checkbox>
-            <mat-checkbox class="margin" [(ngModel)]="offline" (change)="changeOption()">Offline</mat-checkbox>
-            <mat-checkbox class="margin" [(ngModel)]="t1" (change)="changeOption()">T1</mat-checkbox>
-            <mat-checkbox class="margin" [(ngModel)]="t2" (change)="changeOption()">T2</mat-checkbox>
-            <mat-checkbox class="margin" [(ngModel)]="t3" (change)="changeOption()">T3</mat-checkbox>
-            <mat-checkbox class="margin" [(ngModel)]="t4" (change)="changeOption()">T4</mat-checkbox>
-            <i (click)="onlyFavorite()" *ngIf="favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" class="material-icons margin">star</i>
-            <i (click)="onlyFavorite()" *ngIf="!favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;"  class="material-icons margin">star_border</i>
+            <mat-checkbox class="margin" [(ngModel)]="options.online" (change)="changeOption()">Online</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="options.offline" (change)="changeOption()">Offline</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="options.t1" (change)="changeOption()">T1</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="options.t2" (change)="changeOption()">T2</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="options.t3" (change)="changeOption()">T3</mat-checkbox>
+            <mat-checkbox class="margin" [(ngModel)]="options.t4" (change)="changeOption()">T4</mat-checkbox>
+            <i (click)="onlyFavorite()" *ngIf="options.favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" class="material-icons margin">star</i>
+            <i (click)="onlyFavorite()" *ngIf="!options.favorite" style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;"  class="material-icons margin">star_border</i>
           </section>
           <mat-form-field  class="mat-form-field-filter">
             <input *ngIf="isMobile"  matInput (change)="applyFilter()" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
@@ -60,7 +60,7 @@
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
         <td mat-cell *matCellDef="let row">
           <span style="cursor: pointer" (click)="copyToClipboard(row.Address)">
-            <div class="tooltip">{{hideAddress(row.Address)}}
+            <div class="tooltip">{{row.ShortAddress}}
               <span class="tooltiptext">Copy</span>
             </div>
           </span>
