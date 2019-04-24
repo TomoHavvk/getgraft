@@ -43,14 +43,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   data: Node[] = [];
   isLoadingResults = true;
   isMobile: boolean;
-  favorite: boolean = false;
-  online: boolean = true;
-  offline: boolean = true;
-  t1: boolean = true;
-  t2: boolean = true;
-  t3: boolean = true;
-  t4: boolean = true;
-
+  options: Options = new Options();
   filter: string = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,21 +53,23 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   changeOption() {
-    if (this.favorite) {
+    if (this.options.favorite) {
       let filtered = this.data.filter(node => node.favorite)
       this.dataSource = new MatTableDataSource(this.withOptions(filtered));
     } else {
       this.dataSource = new MatTableDataSource(this.withOptions(this.data));
 
     }
+
+    this.cookieService.put('options', JSON.stringify(this.options))
 
     this.dataSource.sort = this.sort;
     this.dataSource.filter = this.filter.trim().toLowerCase();
   }
 
   onlyFavorite() {
-    this.favorite = !this.favorite;
-    if (this.favorite) {
+    this.options.favorite = !this.options.favorite;
+    if (this.options.favorite) {
 
       let filtered = this.data.filter(node => node.favorite)
       this.dataSource = new MatTableDataSource(this.withOptions(filtered));
@@ -85,19 +80,20 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.filter = this.filter.trim().toLowerCase();
     }
-
+    this.cookieService.put('options', JSON.stringify(this.options))
   }
 
   withOptions(nodes: Node[]): Node[] {
-    let online = this.online;
-    let offline = this.offline;
-    let t1 = this.t1;
-    let t2 = this.t2;
-    let t3 = this.t3;
-    let t4 = this.t4;
+    let online = this.options.online;
+    let offline = this.options.offline;
+    let t1 = this.options.t1;
+    let t2 = this.options.t2;
+    let t3 = this.options.t3;
+    let t4 = this.options.t4;
 
     return nodes.filter(node =>
       ((node.isOnline && online) || (!node.isOnline && offline)) &&
+      ((node.favorite && this.options.favorite) || (!node.favorite && !this.options.favorite)) &&
       ((node.BlockchainBasedListTier == "1" && t1) || (node.BlockchainBasedListTier == "2" && t2) || (node.BlockchainBasedListTier == "3" && t3) || (node.BlockchainBasedListTier == "4" && t4))
     );
   }
@@ -107,6 +103,11 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit() {
+    if (this.cookieService.get('options')) {
+      this.options = JSON.parse(this.cookieService.get("options"))
+    } else {
+      this.cookieService.put('options', JSON.stringify(this.options))
+    }
     this.isLoadingResults = true;
     this.loadData();
     merge(this.sort.sortChange).subscribe(data => {
@@ -184,6 +185,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   autoRefresh() {
+
     const source = interval(120000);
     this.subscription = source.subscribe(val => {
       this.loadData()
@@ -205,11 +207,22 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   };
 }
 
+class Options {
+  favorite: boolean = false;
+  online: boolean = true;
+  offline: boolean = true;
+  t1: boolean = true;
+  t2: boolean = true;
+  t3: boolean = true;
+  t4: boolean = true;
+}
+
 export interface Supernodes {
   nodes: Node[];
   info: Info;
   height: number;
 }
+
 
 export interface Animal {
   name: string;
