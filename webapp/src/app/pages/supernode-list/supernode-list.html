@@ -60,7 +60,7 @@
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
         <td mat-cell *matCellDef="let row">
           <span style="cursor: pointer" (click)="copyToClipboard(row.Address)">
-            <div class="tooltip">{{hideAddress(row.Address)}}
+            <div class="tooltip">{{row.ShortAddress}}
               <span class="tooltiptext">Copy</span>
             </div>
           </span>
