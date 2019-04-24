@@ -1,11 +1,11 @@
-package com.tomohavvk.snwatcher.http.server
+package com.tomohavvk.snexplorer.http.server
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.{Route, _}
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snwatcher.service.Services
-import com.tomohavvk.snwatcher.util.JsonUtil
+import com.tomohavvk.snexplorer.service.Services
+import com.tomohavvk.snexplorer.util.JsonUtil
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.ExecutionContextExecutor

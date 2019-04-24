@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher.metrics
+package com.tomohavvk.snexplorer.metrics
 
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.hotspot._

@@ -1,10 +1,10 @@
-# Graft Supernode Watcher
+# Graft Supernode Explorer
 
 
-Non official Graft Supernode Watcher for **Graft Network Community**.
+Non official Graft Supernode Explorer for **Graft Network Community**.
 
 ### Overview 
-Graft Supernode Watcher can help you to monitor all the supernodes and creating a watchlist.
+Graft Supernode Explorer can help you to monitor all the supernodes and creating a watchlist.
 
 It is available here [coinonist.com](http://coinonist.com), but you can install your instance.
 

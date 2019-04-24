@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher.http.server
+package com.tomohavvk.snexplorer.http.server
 
 import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.model.headers._

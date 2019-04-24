@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher.http.server
+package com.tomohavvk.snexplorer.http.server
 
 import java.time.Instant
 
@@ -46,7 +46,7 @@ class HttpServer(routes: Seq[HasRoute])(
 }
 
 object HttpServer {
-  private val config = ConfigFactory.load() getConfig "snwatcher.http.server"
+  private val config = ConfigFactory.load() getConfig "snexplorer.http.server"
   private val interface = config.getString("interface")
   private val port = config.getInt("port")
 
