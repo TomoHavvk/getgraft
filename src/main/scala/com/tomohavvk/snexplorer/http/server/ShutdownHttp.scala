@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher.http.server
+package com.tomohavvk.snexplorer.http.server
 
 import akka.Done
 import akka.http.scaladsl.model.StatusCodes

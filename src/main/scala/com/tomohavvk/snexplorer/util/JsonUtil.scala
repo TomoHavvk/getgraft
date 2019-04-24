@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher.util
+package com.tomohavvk.snexplorer.util
 
 import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule

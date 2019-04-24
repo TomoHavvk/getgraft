@@ -1,7 +1,7 @@
-package com.tomohavvk.snwatcher.service
+package com.tomohavvk.snexplorer.service
 
-import com.tomohavvk.snwatcher.redis.RClient
-import com.tomohavvk.snwatcher.util.JsonUtil
+import com.tomohavvk.snexplorer.redis.RClient
+import com.tomohavvk.snexplorer.util.JsonUtil
 import com.typesafe.scalalogging.LazyLogging
 
 

@@ -1,4 +1,4 @@
-package com.tomohavvk.snwatcher
+package com.tomohavvk.snexplorer
 
 import java.time.Instant
 import java.util.concurrent.atomic.AtomicBoolean
@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snwatcher.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
-import com.tomohavvk.snwatcher.service.Services
+import com.tomohavvk.snexplorer.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
+import com.tomohavvk.snexplorer.service.Services
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.duration._
@@ -16,7 +16,7 @@ import scala.util.{Failure, Success}
 
 object Boot extends App with LazyLogging {
 
-  implicit val system = ActorSystem("snwatcher-system")
+  implicit val system = ActorSystem("snexplorer-system")
   implicit val matr = ActorMaterializer()
   implicit val ec = system.dispatcher
 

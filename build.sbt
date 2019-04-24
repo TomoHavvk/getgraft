@@ -1,4 +1,4 @@
-name := "snwatcher"
+name := "snexplorer"
 
 version := "0.1"
 
@@ -23,4 +23,4 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 )
 
-mainClass in assembly := Some("com.tomohavvk.snwatcher.Boot")
+mainClass in assembly := Some("com.tomohavvk.snexplorer.Boot")

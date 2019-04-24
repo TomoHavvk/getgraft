@@ -1,10 +1,10 @@
-package com.tomohavvk.snwatcher.service
+package com.tomohavvk.snexplorer.service
 
 import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Scheduler}
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snwatcher.http.client.SupernodeHttpClient
+import com.tomohavvk.snexplorer.http.client.SupernodeHttpClient
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.ExecutionContextExecutor
