@@ -27,8 +27,16 @@ import {SupernodeListModule} from './pages/supernode-list';
 import {GuideViewerModule} from './pages/guide-viewer';
 import {DocViewerModule} from './shared/doc-viewer/doc-viewer-module';
 import {CookieBackendService, CookieModule, CookieService} from 'ngx-cookie';
+import {ComponentListModule} from './pages/component-list';
+import {ComponentViewerModule} from './pages/component-viewer/component-viewer';
+import {ComponentCategoryListModule} from './pages/component-category-list/component-category-list';
+import {ComponentSidenavModule} from './pages/component-sidenav/component-sidenav';
+import {ComponentHeaderModule} from './pages/component-page-header/component-page-header';
+import {StackblitzButtonModule} from './shared/stackblitz';
 
-
+import {
+  CanActivateComponentSidenav
+} from './pages/component-sidenav/component-sidenav-can-load-guard';
 import {HttpClientModule} from '@angular/common/http';
 import {GaService} from './shared/ga/ga';
 
@@ -41,6 +49,11 @@ import {GaService} from './shared/ga/ga';
     HttpClientModule,
     MatNativeDateModule,
     RouterModule.forRoot(MATERIAL_DOCS_ROUTES),
+    ComponentCategoryListModule,
+    ComponentHeaderModule,
+    ComponentListModule,
+    ComponentSidenavModule,
+    ComponentViewerModule,
     DocViewerModule,
     FooterModule,
     GuideListModule,
@@ -50,6 +63,7 @@ import {GaService} from './shared/ga/ga';
     GuideViewerModule,
     HomepageModule,
     NavBarModule,
+    StackblitzButtonModule,
     CookieModule.forRoot(),
     SvgViewerModule,
     ThemePickerModule,
@@ -64,6 +78,7 @@ import {GaService} from './shared/ga/ga';
     GuideItems,
     StyleManager,
     ThemeStorage,
+    CanActivateComponentSidenav,
     {provide: LocationStrategy, useClass: PathLocationStrategy},
   ],
   bootstrap: [MaterialDocsApp],
