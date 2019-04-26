@@ -22,7 +22,7 @@ import {GuideViewer} from './pages/guide-viewer/guide-viewer';
 export const MATERIAL_DOCS_ROUTES: Routes = [
   {path: '', component: Homepage, pathMatch: 'full', data: {}},
   {path: 'categories', redirectTo: '/components/categories'},
-  {path: 'guides', component: GuideList, data: {}},
+  // {path: 'guides', component: GuideList, data: {}},
   {path: 'getting-started', component: GettingStarted, data: {}},
   {path: 'watchlist', component: WatchList, data: {}},
   {path: 'supernodes', component: SupernodeList, data: {}},

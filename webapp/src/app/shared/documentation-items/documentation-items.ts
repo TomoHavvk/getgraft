@@ -23,7 +23,7 @@ export interface DocSection {
 const CDK = 'cdk';
 const WATCHLIST = 'watchlist';
 const SUPERNODES = 'supernodes';
-const COMPONENTS = 'documentations';
+const GUIDES = 'guides';
 export const SECTIONS: {[key: string]: DocSection} = {
   // [CDK]: {
   //   name: 'CDK',
@@ -35,25 +35,37 @@ export const SECTIONS: {[key: string]: DocSection} = {
   // },
   [SUPERNODES]: {
     name: 'Supernodes',
-    summary: 'Graft Supernodes'
+    summary: 'Graft Supernodes Explorer'
   },
   [WATCHLIST]: {
     name: 'Watchlist',
-    summary: 'Graft Supernodes Explorer'
+    summary: 'Graft Supernodes Watchlist'
   },
-  [COMPONENTS]: {
-    name: 'Developer Guides',
-    summary: 'Graft Developer Guides'
+  [GUIDES]: {
+    name: 'Guides',
+    summary: 'Graft Guides'
   },
 };
 
 
 const DOCS: {[key: string]: DocCategory[]} = {
-  [COMPONENTS]: [
+  [GUIDES]: [
+    {
+      id: 'general',
+      name: 'General',
+      summary: '',
+      items: [
+        {
+          id: 'become-part-ecosystem',
+          name: 'Become a part of Graft ecosystem',
+          summary: 'How to become a part of Graft ecosystem'
+        }
+      ]
+    },
     {
       id: 'wallet',
       name: 'Wallet',
-      summary: 'Wallet Documentations',
+      summary: 'Wallet guides',
       items: [
         {
           id: 'wallet-json-rpc',
@@ -63,14 +75,53 @@ const DOCS: {[key: string]: DocCategory[]} = {
       ]
     },
     {
-      id: 'template',
-      name: 'Templates',
-      summary: 'Templates',
+      id: 'supernode',
+      name: 'Supernode',
+      summary: 'Supernode guides',
       items: [
         {
-          id: 'template',
-          name: 'Template',
-          summary: 'Template'
+          id: 'rta-supernode-setup',
+          name: 'RTA Supernode',
+          summary: 'Graft RTA Supernode - step-by-step setup instructions'
+        },
+        {
+          id: 'proxy-supernode-setup',
+          name: 'Proxy Supernode',
+          summary: 'Graft Proxy Supernode - step-by-step setup instructions'
+        }
+      ]
+    },
+    {
+      id: 'service-broker',
+      name: 'Service Broker',
+      summary: 'Exchange Broker guides',
+      items: [
+        {
+          id: 'exchange-broker-setup',
+          name: 'Exchange Broker',
+          summary: 'Graft Exchange Broker - step-by-step setup instructions'
+        },
+        {
+          id: 'pay-in-broker-setup',
+          name: 'Pay-in Broker',
+          summary: 'Graft Pay-in Broker - step-by-step setup instructions'
+        },
+        {
+          id: 'payout-broker-setup',
+          name: 'Payout Broker',
+          summary: 'Graft Payout Broker - step-by-step setup instructions'
+        }
+      ]
+    },
+    {
+      id: 'mining',
+      name: 'Mining',
+      summary: 'Mining guides',
+      items: [
+        {
+          id: 'mining-setup',
+          name: 'How to become a miner',
+          summary: 'How to become a miner - Simple step-by-step Graft mining setup instructions'
         }
       ]
     }
@@ -79,9 +130,9 @@ const DOCS: {[key: string]: DocCategory[]} = {
   ]
 };
 
-for (let category of DOCS[COMPONENTS]) {
+for (let category of DOCS[GUIDES]) {
   for (let doc of category.items) {
-    doc.packageName = 'documentations';
+    doc.packageName = 'guides';
   }
 }
 
@@ -91,11 +142,11 @@ for (let category of DOCS[CDK]) {
   }
 }
 
-const ALL_COMPONENTS = DOCS[COMPONENTS].reduce(
+const ALL_COMPONENTS = DOCS[GUIDES].reduce(
   (result, category) => result.concat(category.items), []);
 const ALL_CDK = DOCS[CDK].reduce((result, cdk) => result.concat(cdk.items), []);
 const ALL_DOCS = ALL_COMPONENTS.concat(ALL_CDK);
-const ALL_CATEGORIES = DOCS[COMPONENTS].concat(DOCS[CDK]);
+const ALL_CATEGORIES = DOCS[GUIDES].concat(DOCS[CDK]);
 
 @Injectable()
 export class DocumentationItems {
@@ -104,7 +155,7 @@ export class DocumentationItems {
   }
 
   getItems(section: string): DocItem[] {
-    if (section === COMPONENTS) {
+    if (section === GUIDES) {
       return ALL_COMPONENTS;
     }
     if (section === CDK) {
@@ -114,13 +165,11 @@ export class DocumentationItems {
   }
 
   getItemById(id: string, section: string): DocItem {
-    console.log("getItemById " + id + " " + section)
-    const sectionLookup = section == 'cdk' ? 'cdk' : 'documentations';
+    const sectionLookup = section == 'cdk' ? 'cdk' : 'guides';
     return ALL_DOCS.find(doc => doc.id === id && doc.packageName == sectionLookup);
   }
 
   getCategoryById(id: string): DocCategory {
-    console.log("getCategoryById " + id )
     return ALL_CATEGORIES.find(c => c.id == id);
   }
 }
