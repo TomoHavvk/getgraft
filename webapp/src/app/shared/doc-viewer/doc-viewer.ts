@@ -17,6 +17,7 @@ import {
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
+import {ExampleViewer} from '../example-viewer/example-viewer';
 import {HeaderLink} from './header-link';
 
 @Component({
@@ -77,7 +78,7 @@ export class DocViewer implements OnDestroy {
     this._elementRef.nativeElement.innerHTML = rawDocument;
     this.textContent = this._elementRef.nativeElement.textContent;
 
-    // this._loadComponents('material-docs-example', ExampleViewer);
+    this._loadComponents('material-docs-example', ExampleViewer);
     this._loadComponents('header-link', HeaderLink);
 
     // Resolving and creating components dynamically in Angular happens synchronously, but since
@@ -98,15 +99,15 @@ export class DocViewer implements OnDestroy {
   /** Instantiate a ExampleViewer for each example. */
   private _loadComponents(componentName: string, componentClass: any) {
     let exampleElements =
-        this._elementRef.nativeElement.querySelectorAll(`[${componentName}]`);
+      this._elementRef.nativeElement.querySelectorAll(`[${componentName}]`);
 
     Array.prototype.slice.call(exampleElements).forEach((element: Element) => {
       let example = element.getAttribute(componentName);
       let portalHost = new DomPortalHost(
-          element, this._componentFactoryResolver, this._appRef, this._injector);
+        element, this._componentFactoryResolver, this._appRef, this._injector);
       let examplePortal = new ComponentPortal(componentClass, this._viewContainerRef);
       let exampleViewer = portalHost.attach(examplePortal);
-      // (exampleViewer.instance as ExampleViewer).example = example;
+      (exampleViewer.instance as ExampleViewer).example = example;
 
       this._portalHosts.push(portalHost);
     });

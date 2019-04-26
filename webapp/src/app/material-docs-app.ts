@@ -31,7 +31,7 @@ export class MaterialDocsApp {
 }
 
 function isNavigationWithinComponentView(previousUrl: string, newUrl: string) {
-  const componentViewExpression = /(cdk|components)\/(\w+)/;
+  const componentViewExpression = /(cdk|documentations)\/(\w+)/;
 
   const previousUrlMatch = previousUrl.match(componentViewExpression);
   const newUrlMatch = newUrl.match(componentViewExpression);

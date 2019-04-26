@@ -15,7 +15,7 @@ export class ComponentPageTitle {
     if (title !== '') {
       title = `${title} | `;
     }
-    this.bodyTitle.setTitle(`Graft Supernodes`);
+    this.bodyTitle.setTitle(`${title}Graft Network`);
   }
 
   constructor(private bodyTitle: Title) { }

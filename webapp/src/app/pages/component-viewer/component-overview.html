@@ -1,0 +1,9 @@
+<span class="cdk-visually-hidden" tabindex="-1" #initialFocusTarget>
+  Overview for {{componentViewer.componentDocItem.id}}
+</span>
+<doc-viewer
+    documentUrl="/docs-content/{{componentViewer.componentDocItem.packageName}}/{{componentViewer.componentDocItem.id}}.html"
+    class="docs-component-view-text-content docs-component-overview"
+    (contentRendered)="scrollToSelectedContentSection()">
+</doc-viewer>
+<table-of-contents #toc container=".mat-drawer-content" *ngIf="showToc | async"></table-of-contents>

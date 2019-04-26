@@ -7,6 +7,16 @@
 /* Theme for the ripple elements.*/
 /* stylelint-disable material/no-prefixes */
 /* stylelint-enable */
+/* For desktop, the content should be aligned with the page title. */
+/* Theme for the ripple elements.*/
+/* stylelint-disable material/no-prefixes */
+/* stylelint-enable */
+/* Theme for the ripple elements.*/
+/* stylelint-disable material/no-prefixes */
+/* stylelint-enable */
+/* Theme for the ripple elements.*/
+/* stylelint-disable material/no-prefixes */
+/* stylelint-enable */
 /* Theme for the ripple elements.*/
 /* stylelint-disable material/no-prefixes */
 /* stylelint-enable */
@@ -1490,6 +1500,44 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .is-next-version {
   background: #b71c1c !important; }
 
+.docs-component-category-list-card-summary {
+  color: rgba(255, 255, 255, 0.7); }
+
+.docs-component-list-card-summary {
+  color: rgba(255, 255, 255, 0.7); }
+
+.docs-component-viewer-nav-content {
+  background: rgba(0, 0, 0, 0.2); }
+  .docs-component-viewer-nav-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.26); }
+  .docs-component-viewer-nav-content .docs-nav-content-btn {
+    color: rgba(255, 255, 255, 0.5); }
+    .docs-component-viewer-nav-content .docs-nav-content-btn:focus {
+      background: rgba(0, 0, 0, 0.25); }
+  .docs-component-viewer-nav-content hr {
+    border: none;
+    border-top: solid 1px rgba(255, 255, 255, 0.1); }
+  .docs-component-viewer-nav-content a {
+    color: rgba(255, 255, 255, 0.7); }
+    .docs-component-viewer-nav-content a.docs-component-viewer-sidenav-item-selected, .docs-component-viewer-nav-content a:hover {
+      color: #e91e63; }
+
+@media (max-width: 720px) {
+  .docs-component-viewer-sidenav .docs-component-viewer-nav-content {
+    background: none; }
+  .mat-drawer::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.26); } }
+
+guide-viewer,
+app-component-viewer {
+  color: white; }
+  guide-viewer .mat-tab-label:focus,
+  app-component-viewer .mat-tab-label:focus {
+    color: white; }
+
+.docs-api-h3 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
 .docs-api-method-returns-type,
 .docs-api-method-parameter-type {
   color: #c2185b; }
@@ -1623,6 +1671,26 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
 .docs-api td,
 .docs-markdown-td {
   border: 1px solid rgba(255, 255, 255, 0.08); }
+
+example-viewer .docs-example-viewer-wrapper {
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
+  margin: 4px; }
+
+example-viewer .docs-example-viewer-title {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.03); }
+
+example-viewer .docs-example-source-copy {
+  color: rgba(255, 255, 255, 0.5);
+  right: 8px; }
+  [dir='rtl'] example-viewer .docs-example-source-copy {
+    right: auto;
+    left: 8px; }
+
+example-viewer .docs-example-source {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: auto; }
 
 app-footer .docs-footer-links a {
   color: white; }

@@ -27,6 +27,11 @@
                 "output": "/guides"
               },
               {
+                "glob": "**/*",
+                "input": "./docs-content",
+                "output": "/docs-content"
+              },
+              {
                 "glob": "favicon.ico",
                 "input": "src",
                 "output": "/"
