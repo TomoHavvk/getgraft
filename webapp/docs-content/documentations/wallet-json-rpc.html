@@ -347,6 +347,242 @@ $ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","me
   </code>
   </pre>
 
+  <h3 id="label_account" class="docs-header-link">
+    <span header-link="label_account"></span>
+    label_account
+  </h3>
+  <p>Label an account.</p>
+  <p>Alias: None.</p>
+  <p>Inputs:</p>
+  <ul>
+    <li><em>label</em> - string; (Optional) Label for the account.</li>
+  </ul>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>account_index</em> - unsigned int; Apply label to account at this index.</li>
+    <li><em>label</em> - string; Label for the account.</li>
+  </ul>
+  <p>Example:</p>
 
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"label_account","params":{"account_index":0,"label":"Primary account"}}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "account_tags": [{
+      "accounts": [0,1],
+      "label": "",
+      "tag": "myTag"
+    }]
+  }
+}
+  </code>
+  </pre>
+
+
+  <h3 id="get_account_tags" class="docs-header-link">
+    <span header-link="get_account_tags"></span>
+    get_account_tags
+  </h3>
+  <p>Get a list of user-defined account tags.</p>
+  <p>Alias: None.</p>
+  <p>Inputs: None.</p>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>account_tags</em> - array of account tag information:</li>
+    <ul>
+      <li><em>tag</em> - string; Filter tag.</li>
+      <li><em>label</em> - string; Label for the tag.</li>
+      <li><em>accounts</em> - array of int; List of tagged account indices.</li>
+    </ul>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_account_tags","params":""}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "account_tags": [{
+      "accounts": [0],
+      "label": "Test tag",
+      "tag": "myTag"
+    }]
+  }
+}
+  </code>
+  </pre>
+
+  <h3 id="tag_accounts" class="docs-header-link">
+    <span header-link="tag_accounts"></span>
+    tag_accounts
+  </h3>
+  <p>Apply a filtering tag to a list of accounts.</p>
+  <p>Alias: None.</p>
+  <p>Inputs:</p>
+  <ul>
+    <li><em>tag</em> - string; Tag for the accounts.</li>
+    <li><em>accounts</em> - array of unsigned int; Tag this list of accounts.</li>
+  </ul>
+  <p>Outputs: None.</p>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"tag_accounts","params":{"tag":"myTag","accounts":[0,1]}}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+  }
+}
+  </code>
+  </pre>
+
+
+  <h3 id="untag_accounts" class="docs-header-link">
+    <span header-link="untag_accounts"></span>
+    untag_accounts
+  </h3>
+  <p>Remove filtering tag from a list of accounts.</p>
+  <p>Alias: None.</p>
+  <p>Inputs:</p>
+  <ul>
+    <li><em>accounts</em> - array of unsigned int; Remove tag from this list of accounts.</li>
+  </ul>
+  <p>Outputs: None.</p>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"untag_accounts","params":{"accounts":[1]}}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+  }
+}
+  </code>
+  </pre>
+
+  <h3 id="set_account_tag_description" class="docs-header-link">
+    <span header-link="set_account_tag_description"></span>
+    set_account_tag_description
+  </h3>
+  <p>Set description for an account tag.</p>
+  <p>Alias: None.</p>
+  <p>Inputs:</p>
+  <ul>
+    <li><em>tag</em> - string; Set a description for this tag.</li>
+    <li><em>description</em> - string; Description for the tag.</li>
+  </ul>
+  <p>Outputs: None.</p>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://localhost:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"set_account_tag_description","params":{"tag":"myTag","description":"Test tag"}}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+  }
+}
+  </code>
+  </pre>
+
+
+  <h3 id="get_height" class="docs-header-link">
+    <span header-link="get_height"></span>
+    get_height
+  </h3>
+  <p>Returns the wallet's current block height.</p>
+  <p>Alias: getheight.</p>
+  <p>Inputs: None.</p>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>height</em> - unsigned int; The current graft-wallet-rpc's blockchain height. If the wallet has been offline for a long time, it may need to catch up with the daemon.</li>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_height"}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "height": 145545
+  }
+}
+  </code>
+  </pre>
+
+  <h3 id="transfer" class="docs-header-link">
+    <span header-link="transfer"></span>
+    transfer
+  </h3>
+  <p>Send graft to a number of recipients.</p>
+  <p>Alias: None.</p>
+  <p>Inputs: None.</p>
+  <ul>
+    <li><em>destinations</em> - array of destinations to receive GRFT:</li>
+    <ul>
+      <li><em>amount</em> - unsigned int; Amount to send to each destination, in atomic units.</li>
+      <li><em>address</em> - string; Destination public address.</li>
+    </ul>
+    <li><em>account_index</em> - unsigned int; (Optional) Transfer from this account index. (Defaults to 0)</li>
+    <li><em>subaddr_indices</em> - array of unsigned int; (Optional) Transfer from this set of subaddresses. (Defaults to empty - all indices)</li>
+    <li><em>priority</em> - unsigned int; Set a priority for the transaction. Accepted Values are: 0-3 for: default, unimportant, normal, elevated, priority.</li>
+    <li><em>mixin</em> - unsigned int; Number of outputs from the blockchain to mix with (0 means no mixing).</li>
+    <li><em>ring_size</em> - unsigned int; Number of outputs to mix in the transaction (this output + N decoys from the blockchain).</li>
+    <li><em>unlock_time</em> - unsigned int; Number of blocks before the graft can be spent (0 to not add a lock).</li>
+    <li><em>payment_id</em> - string; (Optional) Random 32-byte/64-character hex string to identify a transaction.</li>
+    <li><em>get_tx_key</em> - boolean; (Optional) Return the transaction key after sending.</li>
+    <li><em>do_not_relay</em> - boolean; (Optional) If true, the newly created transaction will not be relayed to the graft network. (Defaults to false)</li>
+    <li><em>get_tx_hex</em> - boolean; Return the transaction as hex string after sending (Defaults to false)</li>
+    <li><em>get_tx_metadata</em> - boolean; Return the metadata needed to relay the transaction. (Defaults to false)</li>
+  </ul>
+
+  <p>Outputs:</p>
+  <ul>
+    <li><em>amount</em> - Amount transferred for the transaction.</li>
+    <li><em>fee</em> - Integer value of the fee charged for the txn.</li>
+    <li><em>multisig_txset</em> - Set of multisig transactions in the process of being signed (empty for non-multisig).</li>
+    <li><em>tx_blob</em> - Raw transaction represented as hex string, if get_tx_hex is true.</li>
+    <li><em>tx_hash</em> - String for the publically searchable transaction hash.</li>
+    <li><em>tx_key</em> - String for the transaction key if get_tx_key is true, otherwise, blank string.</li>
+    <li><em>tx_metadata</em> - Set of transaction metadata needed to relay this transfer later, if get_tx_metadata is true.</li>
+    <li><em>unsigned_txset</em> - String. Set of unsigned tx for cold-signing purposes.</li>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+$ curl -X POST http://127.0.0.1:18082/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"transfer","params":{"destinations":[{"amount":100000000000,"address":"G64LUpYWoZXKyBDohYxMEv7jprwtsjyVGSeNKmDjqoWo8jo9BCUKL4d1PvKv2XzWEbfJ3CKy7pWRL92gqVeQEpKDRSS5kUo"},{"amount":200000000000,"address":"75sNpRwUtekcJGejMuLSGA71QFuK1qcCVLZnYRTfQLgFU5nJ7xiAHtR5ihioS53KMe8pBhH61moraZHyLoG4G7fMER8xkNv"}],
+    "account_index":0,"subaddr_indices":[0],"priority":0,"ring_size":7,"get_tx_key": true}}' -H 'Content-Type: application/json'
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "amount": 300000000000,
+    "fee": 86897600000,
+    "multisig_txset": "",
+    "tx_blob": "",
+    "tx_hash": "7663438de4f72b25a0e395b770ea9ecf7108cd2f0c4b75be0b14a103d3362be9",
+    "tx_key": "25c9d8ec20045c80c93d665c9d3684aab7335f8b2cd02e1ba2638485afd1c70e2
+    36c4bdd7a2f1cb511dbf466f13421bdf8df988b7b969c448ca6239d7251490e4bf1bbf9f6ffa
+    cffdcdc93b9d1648ec499eada4d6b4e02ce92d4a1c0452e5d009fbbbf15b549df8856205a4c7
+    bda6338d82c823f911acd00cb75850b198c5803",
+    "tx_metadata": "",
+    "unsigned_txset": ""
+  }
+}
+  </code>
+  </pre>
 
 </div>
