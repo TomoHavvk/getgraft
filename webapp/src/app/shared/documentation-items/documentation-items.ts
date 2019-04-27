@@ -53,7 +53,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
     {
       id: 'general',
       name: 'General',
-      summary: '',
+      summary: 'Graft ecosystem',
       items: [
         {
           id: 'become-part-ecosystem',

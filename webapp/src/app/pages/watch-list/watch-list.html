@@ -41,7 +41,7 @@
         <td mat-cell *matCellDef="let row">{{row.BlockchainBasedListTier}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="PublicId">
+      <ng-container *ngIf="!isMobile" matColumnDef="PublicId">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Public ID</th>
         <td mat-cell *matCellDef="let row">
           <span style="cursor: pointer" (click)="copyToClipboard(row.PublicId)">
@@ -51,8 +51,18 @@
           </span>
         </td>
       </ng-container>
+      <ng-container *ngIf="isMobile" matColumnDef="PublicId">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Public ID</th>
+        <td mat-cell *matCellDef="let row">
+          <span style="cursor: pointer" (click)="copyToClipboard(row.PublicId)">
+            <div class="tooltip">{{hideAddress(row.PublicId)}}
+              <span class="tooltiptext">Copy</span>
+            </div>
+          </span>
+        </td>
+      </ng-container>
 
-      <ng-container matColumnDef="Address">
+      <ng-container *ngIf="!isMobile" matColumnDef="Address">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
         <td mat-cell *matCellDef="let row">
           <span style="cursor: pointer" (click)="copyToClipboard(row.Address)">
@@ -71,27 +81,30 @@
         </td>
       </ng-container>
 
-
       <ng-container matColumnDef="StakeAmount">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Stake</th>
         <td mat-cell *matCellDef="let row">{{row.StakeAmount}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="StakeExpiringBlock">
+      <ng-container *ngIf="!isMobile" matColumnDef="StakeExpiringBlock">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Expiration Block</th>
         <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="LastUpdateAge">
+      <ng-container *ngIf="!isMobile" matColumnDef="LastUpdateAge">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Last Update</th>
         <td mat-cell *matCellDef="let row">{{row.LastUpdateAge}}s ago</td>
       </ng-container>
 
-      <ng-container matColumnDef="ExpirationTime">
+      <ng-container *ngIf="!isMobile" matColumnDef="ExpirationTime">
         <th mat-header-cell *matHeaderCellDef>Expiration Block / Time</th>
         <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}} / {{row.ExpirationTime}}</td>
       </ng-container>
 
+      <ng-container *ngIf="isMobile" matColumnDef="ExpirationTime">
+        <th mat-header-cell *matHeaderCellDef>Blocks left</th>
+        <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}}</td>
+      </ng-container>
       <ng-container matColumnDef="watchlist">
         <th mat-header-cell *matHeaderCellDef>Watchlist</th>
         <td style="color: rgb(33,156,0);font-size: 23px;cursor: pointer;" mat-cell *matCellDef="let row">
