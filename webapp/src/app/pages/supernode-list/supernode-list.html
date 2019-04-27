@@ -47,7 +47,7 @@
       <ng-container matColumnDef="PublicId">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Public ID</th>
         <td mat-cell *matCellDef="let row">
-          <span style="cursor: pointer" (click)="copyToClipboard(row.PublicId)">
+          <span style="cursor: pointer" (tap)="copyToClipboard(row.PublicId)">
             <div class="tooltip">{{row.PublicId}}
               <span class="tooltiptext">Copy</span>
             </div>
@@ -59,7 +59,7 @@
       <ng-container matColumnDef="Address">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Address</th>
         <td mat-cell *matCellDef="let row">
-          <span style="cursor: pointer" (click)="copyToClipboard(row.Address)">
+          <span style="cursor: pointer" (tap)="copyToClipboard(row.Address)">
             <div class="tooltip">{{row.ShortAddress}}
               <span class="tooltiptext">Copy</span>
             </div>
