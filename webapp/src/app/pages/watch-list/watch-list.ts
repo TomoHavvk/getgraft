@@ -37,7 +37,7 @@ import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
 
 export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   private subscription: Subscription;
-  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+  displayedColumns: string[];
   database: HttpDatabase | null;
   dataSource = null;
   height = 0;
@@ -56,7 +56,12 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent)
+    this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
+    if (this.isMobile) {
+      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
+    } else {
+      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+    }
     console.log("isMobile - " + this.isMobile)
   }
 
