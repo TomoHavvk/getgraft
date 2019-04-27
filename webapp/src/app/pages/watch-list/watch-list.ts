@@ -58,7 +58,7 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   ngOnInit() {
     this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
     if (this.isMobile) {
-      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
+      this.displayedColumns = ['PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
     } else {
       this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
     }
