@@ -36,7 +36,7 @@
     <table mat-table [dataSource]="dataSource"
            matSort matSortActive="StakeExpiringBlock" matSortDisableClear matSortDirection="asc">
 
-      <ng-container matColumnDef="BlockchainBasedListTier">
+      <ng-container *ngIf="!isMobile" matColumnDef="BlockchainBasedListTier">
         <th mat-header-cell mat-sort-header *matHeaderCellDef>Tier</th>
         <td mat-cell *matCellDef="let row">{{row.BlockchainBasedListTier}}</td>
       </ng-container>
@@ -103,7 +103,7 @@
 
       <ng-container *ngIf="isMobile" matColumnDef="ExpirationTime">
         <th mat-header-cell *matHeaderCellDef>Blocks left</th>
-        <td mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}}</td>
+        <td align="center" mat-cell *matCellDef="let row">{{row.StakeExpiringBlock - height}}</td>
       </ng-container>
       <ng-container matColumnDef="watchlist">
         <th mat-header-cell *matHeaderCellDef>Watchlist</th>
