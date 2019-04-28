@@ -57,7 +57,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
       items: [
         {
           id: 'become-part-ecosystem',
-          name: 'Become a part of Graft ecosystem',
+          name: 'How to become a part of Graft ecosystem',
           summary: 'How to become a part of Graft ecosystem'
         }
       ]
@@ -88,6 +88,11 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'proxy-supernode-setup',
           name: 'Proxy Supernode',
           summary: 'Graft Proxy Supernode - step-by-step setup instructions'
+        },
+        {
+          id: 'supernode-api',
+          name: 'Supernode API',
+          summary: 'Graft Supernode - API'
         }
       ]
     },
