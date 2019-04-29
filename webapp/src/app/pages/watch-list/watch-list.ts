@@ -52,10 +52,12 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+    this.componentPageTitle.title = `Watchlist`;
   }
 
   ngOnInit() {
+
     this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
     if (this.isMobile) {
       this.displayedColumns = ['PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];

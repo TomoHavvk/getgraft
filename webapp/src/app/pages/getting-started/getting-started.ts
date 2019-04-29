@@ -16,7 +16,8 @@ export class GettingStarted implements OnInit {
   guide: string = "/guides/getting-started.html";
 
   public safeURL: SafeResourceUrl;
-  constructor(private _sanitizer: DomSanitizer) {
+  constructor(public componentPageTitle: ComponentPageTitle, private _sanitizer: DomSanitizer) {
+    this.componentPageTitle.title = "Getting Started";
     this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/AOC0YINVd9Y');
   }
   ngOnInit(): void {

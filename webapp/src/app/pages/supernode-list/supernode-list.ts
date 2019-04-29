@@ -49,7 +49,8 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+    this.componentPageTitle.title = `Supernodes`;
   }
 
   changeOption() {
