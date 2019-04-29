@@ -39,7 +39,7 @@ class HttpServer(routes: Seq[HasRoute])(
     logger.info(s"Starting AkkaHttp server on port $port")
 
     Http().bindAndHandle(route, interface, port = 443, connectionContext = https)
-    Http().bindAndHandle(route, interface = interface, port = port)
+//    Http().bindAndHandle(route, interface = interface, port = port)
   }
 
   def shutdown(hardDeadline: FiniteDuration): Future[Done] = {
