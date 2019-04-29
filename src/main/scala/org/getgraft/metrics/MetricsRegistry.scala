@@ -1,8 +1,7 @@
-package com.tomohavvk.snexplorer.metrics
+package org.getgraft.metrics
 
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.hotspot._
-
 
 object MetricsRegistry {
   val registry: CollectorRegistry = new CollectorRegistry(true)

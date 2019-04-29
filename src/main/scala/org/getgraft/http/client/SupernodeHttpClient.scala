@@ -1,11 +1,10 @@
-package com.tomohavvk.snexplorer.http.client
+package org.getgraft.http.client
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.HttpRequest
 import akka.stream.Materializer
 import akka.util.ByteString
-import com.tomohavvk.snexplorer.util.JsonUtil
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
@@ -16,8 +15,8 @@ object SupernodeHttpClient extends LazyLogging {
     implicit val ec: ExecutionContextExecutor = system.dispatcher
 
     val url = {
-      if (withOffline) system.settings.config.getString("snexplorer.http.client.supernodes-online-and-offline-url")
-      else system.settings.config.getString("snexplorer.http.client.supernodes-online-url")
+      if (withOffline) system.settings.config.getString("getgraft.http.client.supernodes-online-and-offline-url")
+      else system.settings.config.getString("getgraft.http.client.supernodes-online-url")
     }
 
     Http().singleRequest(HttpRequest(uri = url))

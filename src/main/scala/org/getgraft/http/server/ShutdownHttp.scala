@@ -1,4 +1,4 @@
-package com.tomohavvk.snexplorer.http.server
+package org.getgraft.http.server
 
 import akka.Done
 import akka.http.scaladsl.model.StatusCodes

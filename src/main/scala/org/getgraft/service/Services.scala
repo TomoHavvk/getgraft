@@ -1,14 +1,14 @@
-package com.tomohavvk.snexplorer.service
+package org.getgraft.service
 
 import java.util.concurrent.TimeUnit
 
 import akka.actor.{ActorSystem, Scheduler}
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snexplorer.http.client.SupernodeHttpClient
 import com.typesafe.scalalogging.LazyLogging
+import org.getgraft.http.client.SupernodeHttpClient
 
 import scala.concurrent.ExecutionContextExecutor
-import scala.concurrent.duration._
+import scala.concurrent.duration.Duration
 
 case class Services(implicit val system: ActorSystem, materializer: ActorMaterializer) extends LazyLogging {
 
