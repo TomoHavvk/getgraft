@@ -270,7 +270,7 @@ export class HttpDatabase {
   }
 
   getRepoIssues(sort: string, order: string): Observable<Supernodes> {
-    const href = 'http://coinonist.com/sn';
+    const href = 'https://getgraft.org/sn';
 
     return this.http.get<Supernodes>(href);
   }
