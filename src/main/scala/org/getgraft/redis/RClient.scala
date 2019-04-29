@@ -1,4 +1,4 @@
-package com.tomohavvk.snexplorer.redis
+package org.getgraft.redis
 
 import com.redis.RedisClient
 import com.typesafe.config.ConfigFactory
@@ -10,7 +10,7 @@ object RClient extends LazyLogging {
   val client: ThreadLocal[RedisClient] = new ThreadLocal[RedisClient]() {
     override def initialValue(): RedisClient = {
       logger.debug("Init Redis instance")
-      new RedisClient(config.getString("snexplorer.redis.host"), config.getInt("snexplorer.redis.port"))
+      new RedisClient(config.getString("getgraft.redis.host"), config.getInt("getgraft.redis.port"))
     }
   }
 

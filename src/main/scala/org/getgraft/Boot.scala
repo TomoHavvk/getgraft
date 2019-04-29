@@ -1,4 +1,4 @@
-package com.tomohavvk.snexplorer
+package org.getgraft
 
 import java.time.Instant
 import java.util.concurrent.atomic.AtomicBoolean
@@ -6,9 +6,9 @@ import java.util.concurrent.atomic.AtomicBoolean
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snexplorer.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
-import com.tomohavvk.snexplorer.service.Services
 import com.typesafe.scalalogging.LazyLogging
+import org.getgraft.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
+import org.getgraft.service.Services
 
 import scala.concurrent.duration._
 import scala.concurrent.{Future, Promise}
@@ -16,7 +16,7 @@ import scala.util.{Failure, Success}
 
 object Boot extends App with LazyLogging {
 
-  implicit val system = ActorSystem("snexplorer-system")
+  implicit val system = ActorSystem("getgraft-system")
   implicit val matr = ActorMaterializer()
   implicit val ec = system.dispatcher
 

@@ -1,12 +1,12 @@
-package com.tomohavvk.snexplorer.http.server
+package org.getgraft.http.server
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.{Route, _}
+import akka.http.scaladsl.server.{Directives, ExceptionHandler, RejectionHandler, Route}
 import akka.stream.ActorMaterializer
-import com.tomohavvk.snexplorer.service.Services
-import com.tomohavvk.snexplorer.util.JsonUtil
 import com.typesafe.scalalogging.LazyLogging
+import org.getgraft.service.Services
+import org.getgraft.util.JsonUtil
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -63,4 +63,3 @@ case class IndexHttp(services: Services)(implicit val system: ActorSystem, mater
         getFromResource("webapp/dist/index.html")
       }.result()
 }
-

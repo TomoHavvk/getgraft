@@ -2,7 +2,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-angular-io": {
+    "getgraft-org": {
       "root": "",
       "projectType": "application",
       "architect": {
@@ -90,18 +90,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-angular-io:build"
+            "browserTarget": "getgraft-org:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-angular-io:build:production"
+              "browserTarget": "getgraft-org:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-angular-io:build"
+            "browserTarget": "getgraft-org:build"
           }
         },
         "test": {
@@ -167,7 +167,7 @@
         }
       }
     },
-    "material-angular-io-e2e": {
+    "getgraft-org-e2e": {
       "root": "",
       "projectType": "application",
       "cli": {},
@@ -177,7 +177,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "material-angular-io:serve"
+            "devServerTarget": "getgraft-org:serve"
           }
         }
       }

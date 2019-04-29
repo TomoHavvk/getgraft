@@ -1,8 +1,8 @@
-package com.tomohavvk.snexplorer.service
+package org.getgraft.service
 
-import com.tomohavvk.snexplorer.redis.RClient
-import com.tomohavvk.snexplorer.util.JsonUtil
 import com.typesafe.scalalogging.LazyLogging
+import org.getgraft.redis.RClient
+import org.getgraft.util.JsonUtil
 
 
 case object Supernode extends LazyLogging {

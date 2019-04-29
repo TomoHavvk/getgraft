@@ -1,14 +1,14 @@
-package com.tomohavvk.snexplorer.http.server
+package org.getgraft.http.server
 
 import java.io.{ByteArrayOutputStream, OutputStreamWriter}
 
 import akka.http.scaladsl.coding.Gzip
 import akka.http.scaladsl.model.{ContentType, HttpCharsets, HttpEntity}
 import akka.http.scaladsl.server.{Directives, Route}
-import com.tomohavvk.snexplorer.metrics.MetricsRegistry
 import com.typesafe.scalalogging.LazyLogging
 import io.prometheus.client.exporter.common.TextFormat
 import io.prometheus.client.exporter.common.TextFormat.CONTENT_TYPE_004
+import org.getgraft.metrics.MetricsRegistry
 
 class MetricsHttp() extends HasRoute with Directives with LazyLogging {
 

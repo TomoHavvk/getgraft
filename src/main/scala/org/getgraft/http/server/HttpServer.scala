@@ -1,4 +1,4 @@
-package com.tomohavvk.snexplorer.http.server
+package org.getgraft.http.server
 
 import java.io.InputStream
 import java.security.{KeyStore, SecureRandom}
@@ -7,9 +7,9 @@ import java.time.Instant
 import akka.Done
 import akka.actor.ActorSystem
 import akka.event.Logging
-import akka.http.scaladsl.{ConnectionContext, Http, HttpsConnectionContext}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.{ConnectionContext, Http, HttpsConnectionContext}
 import akka.stream.Materializer
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.LazyLogging
@@ -71,7 +71,7 @@ class HttpServer(routes: Seq[HasRoute])(
 }
 
 object HttpServer {
-  private val config = ConfigFactory.load() getConfig "snexplorer.http.server"
+  private val config = ConfigFactory.load() getConfig "getgraft.http.server"
   private val interface = config.getString("interface")
   private val port = config.getInt("port")
   private val sslPassword = config.getString("ssl-password")

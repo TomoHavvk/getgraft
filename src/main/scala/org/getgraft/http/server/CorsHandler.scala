@@ -1,9 +1,9 @@
-package com.tomohavvk.snexplorer.http.server
+package org.getgraft.http.server
 
 import akka.http.scaladsl.model.HttpMethods._
-import akka.http.scaladsl.model.headers._
+import akka.http.scaladsl.model.headers.{`Access-Control-Allow-Credentials`, `Access-Control-Allow-Headers`, `Access-Control-Allow-Methods`, `Access-Control-Allow-Origin`}
 import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
-import akka.http.scaladsl.server.{Directive0, Route, _}
+import akka.http.scaladsl.server.{Directive0, Directives, Route}
 
 object CorsHandler extends Directives {
 
