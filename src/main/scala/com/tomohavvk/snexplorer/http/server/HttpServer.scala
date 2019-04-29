@@ -39,7 +39,7 @@ class HttpServer(routes: Seq[HasRoute])(
     logger.info(s"Starting AkkaHttp server on port $port")
 
     Http().bindAndHandle(route, interface, port = 443, connectionContext = https)
-//    Http().bindAndHandle(route, interface = interface, port = port)
+    Http().bindAndHandle(route, interface = interface, port = port)
   }
 
   def shutdown(hardDeadline: FiniteDuration): Future[Done] = {
@@ -50,7 +50,7 @@ class HttpServer(routes: Seq[HasRoute])(
 
 
   def https: HttpsConnectionContext = {
-    val password: Array[Char] = sslPassword.toCharArray // do not store passwords in code, read them from somewhere safe!
+    val password: Array[Char] = sslPassword.toCharArray
 
     val ks: KeyStore = KeyStore.getInstance("PKCS12")
     val keystore: InputStream = getClass.getClassLoader.getResourceAsStream("getgraft.p12")
