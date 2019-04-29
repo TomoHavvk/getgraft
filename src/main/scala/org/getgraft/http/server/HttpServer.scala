@@ -38,7 +38,7 @@ class HttpServer(routes: Seq[HasRoute])(
   val serverBinding: Future[Http.ServerBinding] = {
     logger.info(s"Starting AkkaHttp server on port $port")
 
-    Http().bindAndHandle(route, interface, port = 443, connectionContext = https)
+//    Http().bindAndHandle(route, interface, port = 8080, connectionContext = https)
     Http().bindAndHandle(route, interface = interface, port = port)
   }
 
