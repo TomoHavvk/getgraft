@@ -50,7 +50,7 @@ class HttpServer(routes: Seq[HasRoute])(
 
 
   def https: HttpsConnectionContext = {
-    val password: Array[Char] = sslPassword.toCharArray // do not store passwords in code, read them from somewhere safe!
+    val password: Array[Char] = sslPassword.toCharArray
 
     val ks: KeyStore = KeyStore.getInstance("PKCS12")
     val keystore: InputStream = getClass.getClassLoader.getResourceAsStream("getgraft.p12")
