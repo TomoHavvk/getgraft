@@ -8,7 +8,6 @@ import org.getgraft.util.JsonUtil
 case object Supernode extends LazyLogging {
 
   def nodes: Option[List[Node]] = {
-    // TODO set online when save
     concatNodes(List(onlineNodes.map(_.result.items).map(x => x.map(_.copy(isOnline = true))), offlineNodes.map(_.result.items)))
       .map(_.sortWith(_.StakeExpiringBlock < _.StakeExpiringBlock))
   }
@@ -37,12 +36,13 @@ case object Supernode extends LazyLogging {
     }
 }
 
-case class Nodes(nodes: List[Node], info: Info, height: Long)
+case class Nodes(nodes: List[Node], height: Long, totalStake: Long)
 case class NodesOnline(nodes: String)
 case class NodesOffline(nodes: String)
 case class Data(result: Result)
 case class Result(items: List[Node], height: Long)
-case class Info(nodesOnline: Long, nodesOffline: Long, totalStake: Long, t1: Long, t2: Long, t3: Long, t4: Long)
+case class Stats(nodes: Long, tiers: List[Tier])
+case class Tier(tier: Long, nodes: Long, roi: Double)
 
 case class Node(
   Address: String,

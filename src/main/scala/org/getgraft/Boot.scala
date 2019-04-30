@@ -7,7 +7,8 @@ import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.typesafe.scalalogging.LazyLogging
-import org.getgraft.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
+import org.getgraft.http.server._
+import org.getgraft.http.server.api.v1.{StatsHttp, SupernodeHttp}
 import org.getgraft.service.Services
 
 import scala.concurrent.duration._
@@ -26,10 +27,12 @@ object Boot extends App with LazyLogging {
 
   val services = Services()
   val indexHttp = IndexHttp(services)
+  val statsHttp = StatsHttp(services)
+  val supernodeHttp = SupernodeHttp(services)
   val metricsHttp = new MetricsHttp()
   val shutdownHttp = new ShutdownHttp(() => shutdown())
 
-  lazy val http = HttpServer(shutdownHttp, metricsHttp, indexHttp)
+  lazy val http = HttpServer(shutdownHttp, metricsHttp, indexHttp, statsHttp, supernodeHttp)
   def start(): Unit = {
 
     val version: String = Option(getClass.getPackage.getImplementationVersion) getOrElse "development"
