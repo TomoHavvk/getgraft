@@ -36,7 +36,7 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
   private subscription: Subscription;
-  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+  displayedColumns: string[] = ['BlockchainBasedListTier', 'PublicId', 'Address', 'IsOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
   database: HttpDatabase | null;
   dataSource = null;
   height = 0;
@@ -95,7 +95,7 @@ export class SupernodeList implements AfterViewInit, OnDestroy, OnInit {
 
     return nodes.filter(node => {
 
-      let filter = ((node.isOnline && online) || (!node.isOnline && offline)) &&
+      let filter = ((node.IsOnline && online) || (!node.IsOnline && offline)) &&
         ((node.BlockchainBasedListTier == "1" && t1) || (node.BlockchainBasedListTier == "2" && t2) || (node.BlockchainBasedListTier == "3" && t3) || (node.BlockchainBasedListTier == "4" && t4))
 
       if (filter) {
@@ -244,7 +244,7 @@ export interface Node {
   IsAvailableForAuthSample: string;
   LastUpdateAge: string;
   ExpirationTime: string;
-  isOnline: string;
+  IsOnline: string;
   favorite: boolean;
 }
 

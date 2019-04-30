@@ -31,9 +31,7 @@ case class Services(implicit val system: ActorSystem, materializer: ActorMateria
     val stimulus = 112000
     Supernode.height.flatMap(height => {
       Supernode.nodes.map(nodes => {
-        val asView = nodes.map(_.asView(height))
-
-        val totalNodes = asView.count(_.isOnline)
+        val asView = nodes.filter(_.IsOnline).map(_.asView(height))
 
         val t1Count = asView.count(_.BlockchainBasedListTier == 1)
         val t2Count = asView.count(_.BlockchainBasedListTier == 2)
@@ -45,7 +43,7 @@ case class Services(implicit val system: ActorSystem, materializer: ActorMateria
         val t3 = Tier(3, t3Count, BigDecimal(((stimulus.doubleValue() / 4 / (t3Count * 150000)) * 30) * 100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble)
         val t4 = Tier(4, t4Count, BigDecimal(((stimulus.doubleValue() / 4 / (t4Count * 250000)) * 30) * 100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toDouble)
 
-
+        val totalNodes = asView.size
         Stats(totalNodes, List(t1, t2, t3, t4))
       })
     })

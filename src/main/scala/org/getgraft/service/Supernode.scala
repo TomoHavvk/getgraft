@@ -8,7 +8,7 @@ import org.getgraft.util.JsonUtil
 case object Supernode extends LazyLogging {
 
   def nodes: Option[List[Node]] = {
-    concatNodes(List(onlineNodes.map(_.result.items).map(x => x.map(_.copy(isOnline = true))), offlineNodes.map(_.result.items)))
+    concatNodes(List(onlineNodes.map(_.result.items).map(x => x.map(_.copy(IsOnline = true))), offlineNodes.map(_.result.items)))
       .map(_.sortWith(_.StakeExpiringBlock < _.StakeExpiringBlock))
   }
 
@@ -24,7 +24,7 @@ case object Supernode extends LazyLogging {
     onlineNodes.map(online => {
       val offline = JsonUtil.fromJson[Data](nodes).result.items
         .filter(x => !online.result.items.exists(z => x.PublicId == z.PublicId) && x.StakeAmount > 0)
-        .map(_.copy(isOnline = false))
+        .map(_.copy(IsOnline = false))
 
       RClient.set("offlineNodes", JsonUtil.toJson(Data(Result(offline, online.result.height))))
     })
@@ -53,10 +53,10 @@ case class Node(
   IsStakeValid: Boolean,
   BlockchainBasedListTier: Long,
   AuthSampleBlockchainBasedListTier: Long,
-  IsAvailableForAuthSample: String,
+  IsAvailableForAuthSample: Boolean,
   LastUpdateAge: Long,
   ExpirationTime: String,
-  isOnline: Boolean = false) {
+  IsOnline: Boolean = false) {
 
   def asView(currentBlock: Long): Node = {
     val stakeAmount = StakeAmount.toString.dropRight(10).toLong
@@ -78,6 +78,6 @@ case class Node(
 
     val time = s"$day days, $hours hours, $minute minutes"
 
-    Node(Address, PublicId, stakeAmount, StakeFirstValidBlock, StakeExpiringBlock, IsStakeValid, tier, AuthSampleBlockchainBasedListTier, IsAvailableForAuthSample, LastUpdateAge, time, isOnline)
+    Node(Address, PublicId, stakeAmount, StakeFirstValidBlock, StakeExpiringBlock, IsStakeValid, tier, AuthSampleBlockchainBasedListTier, IsAvailableForAuthSample, LastUpdateAge, time, IsOnline)
   }
 }
