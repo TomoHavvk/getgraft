@@ -1,8 +1,55 @@
 <div class="docs-markdown">
   <div style="display: none" material-docs-example="radio-overview"></div>
 
-  <h3 id="supernode" class="docs-header-link">
-    <span header-link="supernode"></span>
-    Supernode API
+  <h3 id="supernode-stats" class="docs-header-link">
+    <span header-link="supernode-stats"></span>
+    Supernode Stats
   </h3>
+
+  <p>Path:  <a href="https://getgraft.org/api/v1/supernode/stats">https://getgraft.org/api/v1/supernode/stats</a></p>
+  <p>Return the stats which include number of active SN's, number of SN's per tier and monthly ROI per tier.</p>
+  <p>Inputs: None.</p>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>nodes</em> - int; Number of online supernodes.</li>
+    <li><em>tiers</em> - array; List of tiers.
+    </li>
+    <ul>
+      <li><em>tier</em> - int; Number of tier.</li>
+      <li><em>nodes</em> - int; Number of online supernodes in tier.</li>
+      <li><em>roi</em> - double; ROI (monthly).</li>
+    </ul>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+{
+    "nodes": 1219,
+    "tiers": [
+        {
+            "tier": 1,
+            "nodes": 592,
+            "roi": 2.84
+        },
+        {
+            "tier": 2,
+            "nodes": 332,
+            "roi": 2.81
+        },
+        {
+            "tier": 3,
+            "nodes": 217,
+            "roi": 2.58
+        },
+        {
+            "tier": 4,
+            "nodes": 163,
+            "roi": 2.06
+        }
+    ]
+}
+  </code>
+  </pre>
+
 </div>

@@ -222,7 +222,6 @@ class Options {
 
 export interface Supernodes {
   nodes: Node[];
-  info: Info;
   height: number;
 }
 
@@ -249,22 +248,12 @@ export interface Node {
   favorite: boolean;
 }
 
-export interface Info {
-  nodesOnline: string;
-  totalStake: string;
-  t1: string;
-  t2: string;
-  t3: string;
-  t4: string;
-}
-
-
 export class HttpDatabase {
   constructor(private http: HttpClient) {
   }
 
   getRepoIssues(sort: string, order: string): Observable<Supernodes> {
-    const href = 'https://getgraft.org/sn';
+    const href = 'https://getgraft.org/api/v1/supernode/list';
 
     return this.http.get<Supernodes>(href);
   }
