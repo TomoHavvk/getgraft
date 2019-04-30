@@ -25,7 +25,13 @@ case class IndexHttp(services: Services)(implicit val system: ActorSystem, mater
           extractClientIP { IP =>
             val ip = IP.toOption.map(_.getHostAddress).getOrElse("unknown")
 
-            get {
+            scheme("http") {
+              extract(_.request.uri) { uri =>
+                redirect( uri.withScheme("https").withAuthority("getgraft.org", 443),
+                  StatusCodes.MovedPermanently
+                )
+              }
+            } ~ get {
               path("") {
                 indexCounter += 1
                 ips += ip
