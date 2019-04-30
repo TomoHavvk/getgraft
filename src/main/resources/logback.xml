@@ -10,7 +10,7 @@
         </layout>
     </appender>
 
-    <logger name="com.tomohavvk" level="debug" additivity="false">
+    <logger name="org.getgraft" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 
