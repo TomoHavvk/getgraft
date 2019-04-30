@@ -27,9 +27,7 @@ case class IndexHttp(services: Services)(implicit val system: ActorSystem, mater
 
             scheme("http") {
               extract(_.request.uri) { uri =>
-                redirect( uri.withScheme("https").withAuthority("getgraft.org", 443),
-                  StatusCodes.MovedPermanently
-                )
+                redirect(uri.withScheme("https"), StatusCodes.MovedPermanently)
               }
             } ~ scheme("https") {
               get {
