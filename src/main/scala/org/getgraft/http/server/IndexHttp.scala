@@ -27,30 +27,30 @@ case class IndexHttp(services: Services)(implicit val system: ActorSystem, mater
 
             scheme("http") {
               extract(_.request.uri) { uri =>
-                redirect( uri.withScheme("https").withAuthority("getgraft.org", 443),
-                  StatusCodes.MovedPermanently
-                )
+                redirect(uri.withScheme("https"), StatusCodes.MovedPermanently)
               }
-            } ~ get {
-              path("") {
-                indexCounter += 1
-                ips += ip
-                logger.info("index endpoint: " + ip)
-                getFromResource("webapp/dist/index.html")
-              } ~ path("sn") {
-                logger.info("sn endpoint: " + ip)
-                snCounter += 1
-                complete(services.nodes.map(nodes => JsonUtil.toJson(nodes)))
-              } ~ path("visitor") {
-                complete(JsonUtil.toJson(ips))
-              } ~ path("visitor-size") {
-                complete(ips.size.toString)
-              } ~ path("indexCounter") {
-                complete(indexCounter.toString)
-              } ~ path("snCounter") {
-                complete(snCounter.toString)
-              } ~ {
-                getFromResourceDirectory("webapp/dist/")
+            } ~ scheme("https") {
+              get {
+                pathSingleSlash {
+                  indexCounter += 1
+                  ips += ip
+                  logger.info("index endpoint: " + ip)
+                  getFromResource("webapp/dist/index.html")
+                } ~ path("sn") {
+                  logger.info("sn endpoint: " + ip)
+                  snCounter += 1
+                  complete(services.nodes.map(nodes => JsonUtil.toJson(nodes)))
+                } ~ path("visitor") {
+                  complete(JsonUtil.toJson(ips))
+                } ~ path("visitor-size") {
+                  complete(ips.size.toString)
+                } ~ path("indexCounter") {
+                  complete(indexCounter.toString)
+                } ~ path("snCounter") {
+                  complete(snCounter.toString)
+                } ~ {
+                  getFromResourceDirectory("webapp/dist/")
+                }
               }
             }
           }
