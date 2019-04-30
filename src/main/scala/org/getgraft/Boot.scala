@@ -32,7 +32,7 @@ object Boot extends App with LazyLogging {
   val metricsHttp = new MetricsHttp()
   val shutdownHttp = new ShutdownHttp(() => shutdown())
 
-  lazy val http = HttpServer(shutdownHttp, metricsHttp, indexHttp, statsHttp, supernodeHttp)
+  lazy val http = HttpServer(shutdownHttp, metricsHttp, statsHttp, supernodeHttp, indexHttp)
   def start(): Unit = {
 
     val version: String = Option(getClass.getPackage.getImplementationVersion) getOrElse "development"

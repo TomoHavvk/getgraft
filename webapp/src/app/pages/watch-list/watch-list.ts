@@ -60,9 +60,9 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
     this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
     if (this.isMobile) {
-      this.displayedColumns = ['PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
+      this.displayedColumns = ['PublicId', 'IsOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
     } else {
-      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'IsOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
     }
     console.log("isMobile - " + this.isMobile)
   }
@@ -252,7 +252,7 @@ export interface Node {
   IsAvailableForAuthSample: string;
   LastUpdateAge: string;
   ExpirationTime: string;
-  isOnline: string;
+  IsOnline: string;
   favorite: boolean;
 }
 
