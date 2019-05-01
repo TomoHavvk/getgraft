@@ -263,7 +263,7 @@ export class HttpDatabase {
   }
 
   getRepoIssues(sort: string, order: string): Observable<Supernodes> {
-    const href = 'https://getgraft.org/api/v1/supernode/list';
+    const href = '/api/v1/supernode/list';
 
     return this.http.get<Supernodes>(href);
   }
