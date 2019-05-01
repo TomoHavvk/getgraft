@@ -19,17 +19,11 @@ case class StatsHttp(services: Services)(implicit val system: ActorSystem, mater
   override def route: Route =
     handleExceptions(unexpectedErrorHandler) {
       CorsHandler.handle(
-        scheme("http") {
-          extract(_.request.uri) { uri =>
-            redirect(uri.withScheme("https"), StatusCodes.MovedPermanently)
-          }
-        } ~ scheme("https") {
-          get {
-            path("api" / "v1" / "supernode" / "stats") {
-              respondWithHeaders(RawHeader("Cache-Control", "max-age=0")) {
-                logger.info("stats-request")
-                complete(HttpEntity(contentType = ContentTypes.`application/json`, services.stats.map(stats => JsonUtil.toJson(stats)).getOrElse("{}")))
-              }
+        get {
+          path("api" / "v1" / "supernode" / "stats") {
+            respondWithHeaders(RawHeader("Cache-Control", "max-age=0")) {
+              logger.info("stats-request")
+              complete(HttpEntity(contentType = ContentTypes.`application/json`, services.stats.map(stats => JsonUtil.toJson(stats)).getOrElse("{}")))
             }
           }
         })

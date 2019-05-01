@@ -17,16 +17,10 @@ case class SupernodeHttp(services: Services)(implicit val system: ActorSystem, m
   override def route: Route =
     CorsHandler.handle(
       handleExceptions(unexpectedErrorHandler) {
-        scheme("http") {
-          extract(_.request.uri) { uri =>
-            redirect(uri.withScheme("https"), StatusCodes.MovedPermanently)
-          }
-        } ~ scheme("https") {
-          get {
-            path("api" / "v1" / "supernode" / "list") {
-              logger.info("sn-request")
-              complete(HttpEntity(contentType = ContentTypes.`application/json`, services.nodes.map(nodes => JsonUtil.toJson(nodes)).getOrElse("{}")))
-            }
+        get {
+          path("api" / "v1" / "supernode" / "list") {
+            logger.info("sn-request")
+            complete(HttpEntity(contentType = ContentTypes.`application/json`, services.nodes.map(nodes => JsonUtil.toJson(nodes)).getOrElse("{}")))
           }
         }
       })
