@@ -36,6 +36,7 @@ object Boot extends App with LazyLogging {
   lazy val http = HttpServer(shutdownHttp, metricsHttp, statsHttp, supernodeHttp, indexHttp)
 
   val refreshingNodesTask = RefreshService.startRefreshingNodes
+  val refreshingStatsTask = RefreshService.startRefreshingStats
 
   def start(): Unit = {
 
@@ -57,6 +58,7 @@ object Boot extends App with LazyLogging {
         _ <- http.shutdown(5.seconds)
       } yield {
         logger.info(s"Refreshing nodes canceled: ${refreshingNodesTask.cancel()}")
+        logger.info(s"Refreshing stats canceled: ${refreshingStatsTask.cancel()}")
 
         val u = FiniteDuration(Instant.now.toEpochMilli - http.startedAt.toEpochMilli, MILLISECONDS)
         logger.info(s"Uptime: ${u.toDays}d ${u.toHours % 24}h ${u.toMinutes % 60}m ${u.toSeconds % 60}s")

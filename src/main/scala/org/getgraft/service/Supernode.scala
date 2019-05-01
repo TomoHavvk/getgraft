@@ -20,6 +20,10 @@ case object Supernode extends LazyLogging {
 
   def updateOnlineNodes(nodes: String): Option[Boolean] = Option(RClient.set("onlineNodes", nodes))
 
+  def updateNodeStats(stats: Stats): Option[Boolean] = Option(RClient.set("nodeStats", JsonUtil.toJson(stats)))
+
+  def nodeStats: Option[Stats] = RClient.get("nodeStats").map(JsonUtil.fromJson[Stats](_))
+
   def updateOfflineNodes(nodes: String): Option[Boolean] = {
     onlineNodes.map(online => {
       val offline = JsonUtil.fromJson[Data](nodes).result.items
