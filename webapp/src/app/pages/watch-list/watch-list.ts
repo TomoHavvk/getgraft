@@ -27,6 +27,7 @@ import {
 import {merge, interval, Observable, of as observableOf, Subscription, BehaviorSubject} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-watchlist',
@@ -52,7 +53,8 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+  constructor(private meta: Meta, public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+    this.meta.updateTag({ name: 'description', content: 'Graft Network Supernodes watchlist.' });
     this.componentPageTitle.title = `Watchlist`;
   }
 
