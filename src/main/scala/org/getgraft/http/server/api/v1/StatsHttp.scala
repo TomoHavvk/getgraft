@@ -21,9 +21,11 @@ case class StatsHttp(services: Services)(implicit val system: ActorSystem, mater
       CorsHandler.handle(
         get {
           path("api" / "v1" / "supernode" / "stats") {
-            respondWithHeaders(RawHeader("Cache-Control", "max-age=0")) {
-              logger.info("stats-request")
-              complete(HttpEntity(contentType = ContentTypes.`application/json`, services.stats.map(stats => JsonUtil.toJson(stats)).getOrElse("{}")))
+            extractClientIP { ip =>
+              respondWithHeaders(RawHeader("Cache-Control", "max-age=0")) {
+                logger.info("stats-request. IP: " + ip.toOption.map(_.getHostAddress).getOrElse("unknown"))
+                complete(HttpEntity(contentType = ContentTypes.`application/json`, services.stats.map(stats => JsonUtil.toJson(stats)).getOrElse("{}")))
+              }
             }
           }
         })
