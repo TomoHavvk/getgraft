@@ -166,21 +166,6 @@
           }
         }
       }
-    },
-    "getgraft-org-e2e": {
-      "root": "",
-      "projectType": "application",
-      "cli": {},
-      "schematics": {},
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "getgraft-org:serve"
-          }
-        }
-      }
     }
   },
   "schematics": {

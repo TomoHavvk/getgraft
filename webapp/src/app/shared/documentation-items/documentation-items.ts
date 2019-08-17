@@ -51,6 +51,18 @@ export const SECTIONS: {[key: string]: DocSection} = {
 const DOCS: {[key: string]: DocCategory[]} = {
   [GUIDES]: [
     {
+      id: 'api',
+      name: 'API',
+      summary: 'Site API',
+      items: [
+        {
+          id: 'supernode-api',
+          name: 'Supernode',
+          summary: 'Graft Supernode - API'
+        }
+      ]
+    },
+    {
       id: 'general',
       name: 'General',
       summary: 'Graft ecosystem',
@@ -88,11 +100,6 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'proxy-supernode-setup',
           name: 'Proxy Supernode',
           summary: 'Graft Proxy Supernode - step-by-step setup instructions'
-        },
-        {
-          id: 'supernode-api',
-          name: 'Supernode API',
-          summary: 'Graft Supernode - API'
         }
       ]
     },

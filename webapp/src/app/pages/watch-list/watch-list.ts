@@ -27,6 +27,7 @@ import {
 import {merge, interval, Observable, of as observableOf, Subscription, BehaviorSubject} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {ReactiveFormsModule, FormControl, FormsModule} from '@angular/forms';
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-watchlist',
@@ -52,7 +53,8 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+  constructor(private meta: Meta, public componentPageTitle: ComponentPageTitle, private http: HttpClient, private cookieService: CookieService) {
+    this.meta.updateTag({ name: 'description', content: 'Graft Network Supernodes watchlist.' });
     this.componentPageTitle.title = `Watchlist`;
   }
 
@@ -60,9 +62,9 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
     this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
     if (this.isMobile) {
-      this.displayedColumns = ['PublicId', 'isOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
+      this.displayedColumns = ['PublicId', 'IsOnline', 'StakeAmount', 'ExpirationTime', 'watchlist'];
     } else {
-      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'isOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
+      this.displayedColumns = ['BlockchainBasedListTier', 'PublicId', 'Address', 'IsOnline', 'StakeAmount', 'StakeExpiringBlock', 'LastUpdateAge', 'ExpirationTime', 'watchlist'];
     }
     console.log("isMobile - " + this.isMobile)
   }
@@ -237,7 +239,6 @@ export class WatchList implements AfterViewInit, OnDestroy, OnInit {
 
 export interface Supernodes {
   nodes: Node[];
-  info: Info;
   height: number;
 }
 
@@ -253,26 +254,16 @@ export interface Node {
   IsAvailableForAuthSample: string;
   LastUpdateAge: string;
   ExpirationTime: string;
-  isOnline: string;
+  IsOnline: string;
   favorite: boolean;
 }
-
-export interface Info {
-  nodesOnline: string;
-  totalStake: string;
-  t1: string;
-  t2: string;
-  t3: string;
-  t4: string;
-}
-
 
 export class HttpDatabase {
   constructor(private http: HttpClient) {
   }
 
   getRepoIssues(sort: string, order: string): Observable<Supernodes> {
-    const href = 'https://getgraft.org/sn';
+    const href = '/api/v1/supernode/list';
 
     return this.http.get<Supernodes>(href);
   }

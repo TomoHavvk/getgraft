@@ -1,12 +1,10 @@
-# Graft Supernode Explorer
+# **[getgraft.org](https://getgraft.org)** 
 
 
-Non official Graft Supernode Explorer for **Graft Network Community**.
+Non official **[Graft Network](https://www.graft.network/)** portal for **Graft Network Community**.
 
 ### Overview 
-Graft Supernode Explorer can help you to monitor all the supernodes and creating a watchlist.
-
-It is available here [getgraft.org](https://getgraft.org), but you can install your instance.
+**[getgraft.org](https://getgraft.org)** can help you to monitor all the supernodes and creating a watchlist. Also API, Guides and more...
 
 ### Installation
 TODO

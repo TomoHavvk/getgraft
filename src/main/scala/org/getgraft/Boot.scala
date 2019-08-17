@@ -7,8 +7,9 @@ import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.typesafe.scalalogging.LazyLogging
-import org.getgraft.http.server.{HttpServer, IndexHttp, MetricsHttp, ShutdownHttp}
-import org.getgraft.service.Services
+import org.getgraft.http.server._
+import org.getgraft.http.server.api.v1.{StatsHttp, SupernodeHttp}
+import org.getgraft.service.{RefreshService, Services}
 
 import scala.concurrent.duration._
 import scala.concurrent.{Future, Promise}
@@ -22,14 +23,21 @@ object Boot extends App with LazyLogging {
 
   private val stopping: AtomicBoolean = new AtomicBoolean(false)
   private val _whenStopped = Promise[Done]
+
   def whenStopped: Future[Done] = _whenStopped.future
 
   val services = Services()
   val indexHttp = IndexHttp(services)
+  val statsHttp = StatsHttp(services)
+  val supernodeHttp = SupernodeHttp(services)
   val metricsHttp = new MetricsHttp()
   val shutdownHttp = new ShutdownHttp(() => shutdown())
 
-  lazy val http = HttpServer(shutdownHttp, metricsHttp, indexHttp)
+  lazy val http = HttpServer(shutdownHttp, metricsHttp, statsHttp, supernodeHttp, indexHttp)
+
+  val refreshingNodesTask = RefreshService.startRefreshingNodes
+  val refreshingStatsTask = RefreshService.startRefreshingStats
+
   def start(): Unit = {
 
     val version: String = Option(getClass.getPackage.getImplementationVersion) getOrElse "development"
@@ -49,6 +57,8 @@ object Boot extends App with LazyLogging {
       val stopped = for {
         _ <- http.shutdown(5.seconds)
       } yield {
+        logger.info(s"Refreshing nodes canceled: ${refreshingNodesTask.cancel()}")
+        logger.info(s"Refreshing stats canceled: ${refreshingStatsTask.cancel()}")
 
         val u = FiniteDuration(Instant.now.toEpochMilli - http.startedAt.toEpochMilli, MILLISECONDS)
         logger.info(s"Uptime: ${u.toDays}d ${u.toHours % 24}h ${u.toMinutes % 60}m ${u.toSeconds % 60}s")

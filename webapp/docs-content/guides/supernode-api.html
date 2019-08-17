@@ -1,8 +1,109 @@
 <div class="docs-markdown">
   <div style="display: none" material-docs-example="radio-overview"></div>
 
-  <h3 id="supernode" class="docs-header-link">
-    <span header-link="supernode"></span>
-    Supernode API
+  <h3 id="supernode-stats" class="docs-header-link">
+    <span header-link="supernode-stats"></span>
+    Supernode Stats
   </h3>
+
+  <p>Path:  <a target="_blank" href="https://getgraft.org/api/v1/supernode/stats">https://getgraft.org/api/v1/supernode/stats</a></p>
+  <p>Return the stats which include number of active SN's, number of SN's per tier and monthly ROI per tier.</p>
+  <p>Inputs: None.</p>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>nodes</em> - int; Number of online supernodes.</li>
+    <li><em>tiers</em> - array; List of tiers.
+    </li>
+    <ul>
+      <li><em>tier</em> - int; Number of tier.</li>
+      <li><em>nodes</em> - int; Number of online supernodes in tier.</li>
+      <li><em>roi</em> - double; ROI (monthly).</li>
+    </ul>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+{
+    "nodes": 1260,
+    "tiers": [
+        {
+            "tier": 1,
+            "nodes": 579,
+            "roi": 2.9
+        },
+        {
+            "tier": 2,
+            "nodes": 332,
+            "roi": 2.81
+        },
+        {
+            "tier": 3,
+            "nodes": 197,
+            "roi": 2.84
+        },
+        {
+            "tier": 4,
+            "nodes": 152,
+            "roi": 2.21
+        }
+    ]
+}
+  </code>
+  </pre>
+
+  <h3 id="supernode-list" class="docs-header-link">
+    <span header-link="supernode-list"></span>
+    Supernode List
+  </h3>
+
+  <p>Path:  <a target="_blank" href="https://getgraft.org/api/v1/supernode/list">https://getgraft.org/api/v1/supernode/list</a></p>
+  <p>Return the list of supernodes</p>
+  <p>Inputs: None.</p>
+  <p>Outputs:</p>
+  <ul>
+    <li><em>nodes</em> - array; List of supernodes.</li>
+    <ul>
+      <li><em>Address</em> - string; Wallet address with required stake.</li>
+      <li><em>PublicId</em> - string; Supernode public id.</li>
+      <li><em>StakeAmount</em> - int; Stake amount.</li>
+      <li><em>StakeFirstValidBlock</em> - int; Stake first valid block.</li>
+      <li><em>StakeExpiringBlock</em> - int; Stake expiring block.</li>
+      <li><em>IsStakeValid</em> - bool; Is stake valid.</li>
+      <li><em>BlockchainBasedListTier</em> - int; Blockchain based list tier</li>
+      <li><em>AuthSampleBlockchainBasedListTier</em> - int; Auth sample blockchain based list tier</li>
+      <li><em>IsAvailableForAuthSample</em> - bool; Is available for auth sample.</li>
+      <li><em>LastUpdateAge</em> - int; Last update age in secconds.</li>
+      <li><em>ExpirationTime</em> - string; The remaining amount of time before the expiration in readable format.</li>
+      <li><em>IsOnline</em> - bool; Is supernode online.</li>
+    </ul>
+    <li><em>height</em> - int; Current block height.</li>
+    <li><em>totalStake</em> - int; Total GRFT in stake.</li>
+  </ul>
+  <p>Example:</p>
+
+  <pre>
+  <code class="hljs-name">
+{
+  "nodes": [
+    {
+      "Address": "G5QaU5vX1KP8d7yi6V67LUiJYnZTF1VMQTZ9b9msMe9niq7ReQrJPzaTu7feyRLSG3LRM8HqZBi3zWwbGLKxtrmNP9Rw3wX",
+      "PublicId": "4bce8d7069960405cd20e9df99d3fecf40084dcfabbcf4d2751e8cf5f045a1c9",
+      "StakeAmount": 50009,
+      "StakeFirstValidBlock": 338062,
+      "StakeExpiringBlock": 343058,
+      "IsStakeValid": true,
+      "BlockchainBasedListTier": 1,
+      "AuthSampleBlockchainBasedListTier": 0,
+      "IsAvailableForAuthSample": "false",
+      "LastUpdateAge": 81069,
+      "ExpirationTime": "6 days, 22 hours, 30 minutes",
+      "IsOnline": false
+    }
+  ],
+  "height": 338072,
+  "totalStake": 136203755
+}
+  </code>
+  </pre>
 </div>

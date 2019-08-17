@@ -38,6 +38,7 @@ class HttpServer(routes: Seq[HasRoute])(
   val serverBinding: Future[Http.ServerBinding] = {
     logger.info(s"Starting AkkaHttp server on port $port")
 
+//    Http().bindAndHandle(route, interface = interface, port = 8080)
     Http().bindAndHandle(route, interface = interface, port = 80)
     Http().bindAndHandle(route, interface, port = port, connectionContext = https)
   }
@@ -49,7 +50,7 @@ class HttpServer(routes: Seq[HasRoute])(
   }
 
 
-  def https: HttpsConnectionContext = {
+  lazy val https: HttpsConnectionContext = {
     val password: Array[Char] = sslPassword.toCharArray
 
     val ks: KeyStore = KeyStore.getInstance("PKCS12")
@@ -74,7 +75,7 @@ object HttpServer {
   private val config = ConfigFactory.load() getConfig "getgraft.http.server"
   private val interface = config.getString("interface")
   private val port = config.getInt("port")
-  private val sslPassword = config.getString("ssl-password")
+  private lazy val sslPassword = config.getString("ssl-password")
 
   def apply(routes: HasRoute*)(implicit system: ActorSystem, materializer: Materializer): HttpServer = {
     new HttpServer(Seq(routes: _*))
