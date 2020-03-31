@@ -23,4 +23,5 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 )
 
+
 mainClass in assembly := Some("org.getgraft.Boot")
